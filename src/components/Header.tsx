@@ -78,12 +78,17 @@ const Header = () => {
           >
             Attractions
           </button>
-          <a 
-            href="/#/contact"
+          <button
+            onClick={() => {
+              navigate('/contact');
+              setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }, 100);
+            }}
             className="text-foreground hover:text-primary transition-colors"
           >
             Contact
-          </a>
+          </button>
         </nav>
         
         <div className="flex items-center space-x-3">

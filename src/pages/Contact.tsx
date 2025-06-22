@@ -57,7 +57,7 @@ const Contact = () => {
   };
 
   return (
-    <div id="get-in-touch" className="min-h-screen bg-background flex flex-col">
+    <div id="contact" className="min-h-screen bg-background flex flex-col">
       <Header />
       
       {/* Hero Section */}

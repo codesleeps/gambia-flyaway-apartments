@@ -214,7 +214,20 @@ const Index = () => {
               From pristine beaches to vibrant local culture, explore the natural beauty and rich experiences that make The Gambia truly special
             </p>
           </div>
-          
+
+          {/* Fact Bar */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-10">
+            <div className="bg-primary/10 rounded-lg px-6 py-3 flex items-center gap-2 text-primary font-semibold text-base shadow-sm">
+              <span role="img" aria-label="Bird">🦜</span> 560+ bird species
+            </div>
+            <div className="bg-primary/10 rounded-lg px-6 py-3 flex items-center gap-2 text-primary font-semibold text-base shadow-sm">
+              <span role="img" aria-label="Coastline">🏖️</span> 80km Atlantic coastline
+            </div>
+            <div className="bg-primary/10 rounded-lg px-6 py-3 flex items-center gap-2 text-primary font-semibold text-base shadow-sm">
+              <span role="img" aria-label="Sun">☀️</span> Year-round sunshine
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Beaches */}
             <Card className="overflow-hidden hover:shadow-lg transition-shadow">
@@ -326,9 +339,16 @@ const Index = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
-              Explore All Attractions
-            </Button>
+            <a
+              href="https://www.visitthegambia.gm/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Button size="lg" className="bg-primary hover:bg-primary/90">
+                Explore All Attractions
+              </Button>
+            </a>
           </div>
         </div>
       </section>

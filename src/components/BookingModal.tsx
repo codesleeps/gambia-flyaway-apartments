@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -109,6 +108,9 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Book {apartment.name}</DialogTitle>
+          <DialogDescription>
+            Fill in your check-in and check-out dates, number of guests, and any special requests to book this apartment.
+          </DialogDescription>
         </DialogHeader>
         
         <div className="grid gap-4 py-4">
