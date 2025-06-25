@@ -19,5 +19,5 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: '/gambia-flyaway-apartments/',
+  base: mode === 'production' ? '/gambia-flyaway-apartments/' : '/',
 }));
