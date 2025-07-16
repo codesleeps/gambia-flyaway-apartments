@@ -6,6 +6,7 @@ import { Star, MapPin, Users, Bed, Bath, Wifi, Car, Waves } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import BookingModal from './BookingModal';
+import OptimizedImage from './OptimizedImage';
 
 // Generic apartment images
 const genericImages = [
@@ -40,18 +41,18 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
   const navigate = useNavigate();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
-  // Get a consistent image based on the apartment ID
+  // Get optimized image URL based on apartment ID
   const getImageUrl = () => {
-    // Use generic images if image_url is empty, null, or just a placeholder
-    if (!apartment.image_url || apartment.image_url === '/placeholder.svg' || apartment.image_url === '') {
-      const index = parseInt(apartment.id.replace(/\D/g, '')) % genericImages.length;
-      const selectedImage = genericImages[index] || '/placeholder.svg';
-      console.log('Apartment ID:', apartment.id, 'Index:', index, 'Selected image:', selectedImage);
-      return selectedImage;
+    // Use actual apartment images if available
+    if (apartment.image_url && apartment.image_url !== '/placeholder.svg' && apartment.image_url !== '') {
+      return apartment.image_url;
     }
     
-    console.log('Using apartment image_url:', apartment.image_url);
-    return apartment.image_url;
+    // Use optimized apartment images
+    const apartmentImagePath = `/images/apartments/apartment-${apartment.id}-800x600.webp`;
+    
+    // Fallback to generic gradient if no image
+    return apartmentImagePath;
   };
 
   const getAmenityIcon = (amenity: string) => {
@@ -78,14 +79,12 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
       <Card className="card-hover overflow-hidden group">
         <CardHeader className="p-0">
           <div className="relative h-48 bg-gradient-to-br from-orange-100 to-orange-200 overflow-hidden">
-            <img 
-              src={getImageUrl()} 
+            <OptimizedImage
+              src={getImageUrl()}
               alt={apartment.name}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              onError={(e) => {
-                console.error('Image failed to load:', e.currentTarget.src);
-                e.currentTarget.src = '/placeholder.svg';
-              }}
+              className="w-full h-full group-hover:scale-110 transition-transform duration-500"
+              sizes="(max-width: 768px) 400px, (max-width: 1024px) 600px, 800px"
+              priority={false}
             />
             <div className="absolute top-4 right-4">
               <Badge className="bg-white/90 text-primary border-0">

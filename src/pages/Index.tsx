@@ -26,7 +26,43 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="hero-gradient py-24 px-4">
+      <section className="relative py-24 px-4">
+        {/* Responsive Background Images */}
+        <picture className="absolute inset-0">
+          {/* WebP format for modern browsers */}
+          <source
+            media="(min-width: 1024px)"
+            srcSet="/images/hero/hero-1920x1080.webp"
+            type="image/webp"
+          />
+          <source
+            media="(min-width: 768px)"
+            srcSet="/images/hero/hero-1280x720.webp"
+            type="image/webp"
+          />
+          <source
+            srcSet="/images/hero/hero-800x600.webp"
+            type="image/webp"
+          />
+          
+          {/* JPG fallbacks */}
+          <source
+            media="(min-width: 1024px)"
+            srcSet="/images/hero/hero-1920x1080.jpg"
+          />
+          <source
+            media="(min-width: 768px)"
+            srcSet="/images/hero/hero-1280x720.jpg"
+          />
+          <img
+            src="/images/hero/hero-800x600.jpg"
+            alt="Beautiful Gambia apartment complex with tropical vegetation"
+            className="w-full h-full object-cover"
+          />
+        </picture>
+        
+        {/* Background Overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
         {/* Content */}
         <div className="relative z-10 container mx-auto text-center text-white">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
@@ -93,12 +129,12 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="bg-gradient-to-br from-blue-100/50 to-primary/10 rounded-lg p-4 sm:p-6 h-48 flex flex-col justify-between">
-                    <div>
+                    <div className="pb-2">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                         <Star className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">5-Star Quality</h3>
-                      <p className="text-gray-600 text-xs sm:text-sm leading-tight">
+                      <p className="text-gray-600 text-xs sm:text-sm leading-tight break-words overflow-hidden">
                         Every property meets our high standards for comfort, cleanliness, and amenities
                       </p>
                     </div>
@@ -117,12 +153,12 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="bg-gradient-to-br from-green-100/50 to-emerald-200/30 rounded-lg p-4 sm:p-6 h-48 flex flex-col justify-between">
-                    <div>
+                    <div className="pb-2">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                         <Wifi className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">Modern Amenities</h3>
-                      <p className="text-gray-600 text-xs sm:text-sm leading-tight">
+                      <p className="text-gray-600 text-xs sm:text-sm leading-tight break-words overflow-hidden">
                         Enjoy modern comforts while experiencing the beauty of The Gambia
                       </p>
                     </div>
