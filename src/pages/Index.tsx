@@ -11,6 +11,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const Index = () => {
   const { data: apartments, isLoading, error } = useApartments();
+  
+  console.log('Index component - isLoading:', isLoading, 'error:', error, 'apartments:', apartments);
 
   const scrollToApartments = () => {
     const apartmentsSection = document.getElementById('apartments');
@@ -79,48 +81,48 @@ const Index = () => {
             <div className="relative">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
-                  <div className="bg-gradient-to-br from-primary/20 to-orange-200/30 rounded-lg p-6 h-48 flex flex-col justify-between">
+                  <div className="bg-gradient-to-br from-primary/20 to-orange-200/30 rounded-lg p-4 sm:p-6 h-48 flex flex-col justify-between">
                     <div>
-                      <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-                        <MapPin className="w-6 h-6 text-white" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                        <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">Prime Beach Locations</h3>
-                      <p className="text-gray-600 text-sm break-words">
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">Prime Beach Locations</h3>
+                      <p className="text-gray-600 text-xs sm:text-sm break-words leading-tight">
                         All our apartments are located near beautiful beaches in The Gambia
                       </p>
                     </div>
                   </div>
-                  <div className="bg-gradient-to-br from-blue-100/50 to-primary/10 rounded-lg p-6 h-48 flex flex-col justify-between">
+                  <div className="bg-gradient-to-br from-blue-100/50 to-primary/10 rounded-lg p-4 sm:p-6 h-48 flex flex-col justify-between">
                     <div>
-                      <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
-                        <Star className="w-6 h-6 text-white" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                        <Star className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">5-Star Quality</h3>
-                      <p className="text-gray-600 text-sm">
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">5-Star Quality</h3>
+                      <p className="text-gray-600 text-xs sm:text-sm leading-tight">
                         Every property meets our high standards for comfort, cleanliness, and amenities
                       </p>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-4 pt-8">
-                  <div className="bg-gradient-to-br from-orange-100/50 to-yellow-200/30 rounded-lg p-6 h-48 flex flex-col justify-between">
+                  <div className="bg-gradient-to-br from-orange-100/50 to-yellow-200/30 rounded-lg p-4 sm:p-6 h-48 flex flex-col justify-between">
                     <div>
-                      <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-                        <Users className="w-6 h-6 text-white" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                        <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">Local Experience</h3>
-                      <p className="text-gray-600 text-sm">
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">Local Experience</h3>
+                      <p className="text-gray-600 text-xs sm:text-sm leading-tight">
                         Immerse yourself in authentic Gambian culture and hospitality
                       </p>
                     </div>
                   </div>
-                  <div className="bg-gradient-to-br from-green-100/50 to-emerald-200/30 rounded-lg p-6 h-48 flex flex-col justify-between">
+                  <div className="bg-gradient-to-br from-green-100/50 to-emerald-200/30 rounded-lg p-4 sm:p-6 h-48 flex flex-col justify-between">
                     <div>
-                      <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
-                        <Wifi className="w-6 h-6 text-white" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                        <Wifi className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">Modern Amenities</h3>
-                      <p className="text-gray-600 text-sm">
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">Modern Amenities</h3>
+                      <p className="text-gray-600 text-xs sm:text-sm leading-tight">
                         Enjoy modern comforts while experiencing the beauty of The Gambia
                       </p>
                     </div>
