@@ -48,8 +48,18 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
       return apartment.image_url;
     }
     
-    // Default to apartment-1 if apartment ID is not recognized
     const apartmentId = apartment.id || '1';
+    
+    // Handle different image naming patterns for specific apartments
+    if (apartmentId === '2') {
+      return `/images/apartments/apt2-800x600.jpg`;
+    } else if (apartmentId === '5') {
+      return `/images/apartments/apt5_800x600.jpg`;
+    } else if (apartmentId === '6') {
+      return `/images/apartments/apt6-800x600.jpg`;
+    }
+    
+    // Default pattern for other apartments
     return `/images/apartments/apartment-${apartmentId}-800x600.jpg`;
   };
 
@@ -78,7 +88,7 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
         <CardHeader className="p-0">
           <div className="relative h-48 bg-gradient-to-br from-orange-100 to-orange-200 overflow-hidden">
             <OptimizedImage
-              src={`/images/apartments/apartment-${apartment.id || '1'}-800x600.jpg`}
+              src={getImageUrl()}
               alt={apartment.name}
               className="w-full h-full group-hover:scale-110 transition-transform duration-500 object-cover"
               sizes="(max-width: 768px) 400px, (max-width: 1024px) 600px, 800px"
