@@ -1,6 +1,7 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "gambia-flyaway-apartments",
   "private": true,
+  "homepage": "https://codesleeps.github.io/gambia-flyaway-apartments",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
