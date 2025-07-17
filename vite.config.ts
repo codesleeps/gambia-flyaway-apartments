@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
   const base = isProd ? '/gambia-flyaway-apartments/' : '/';
   
   return {
+    base,
     server: {
       host: "::",
       port: 8080,
