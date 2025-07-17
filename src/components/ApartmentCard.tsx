@@ -89,10 +89,15 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
           <div className="relative h-48 bg-gradient-to-br from-orange-100 to-orange-200 overflow-hidden">
             <OptimizedImage
               src={getImageUrl()}
-              alt={apartment.name}
-              className="w-full h-full group-hover:scale-110 transition-transform duration-500 object-cover"
+              alt={`${apartment.name} in ${apartment.location}`}
+              width={800}
+              height={600}
+              className="w-full h-full group-hover:scale-110 transition-transform duration-500"
               sizes="(max-width: 768px) 400px, (max-width: 1024px) 600px, 800px"
               priority={false}
+              fallbackSrc="/images/placeholder-apartment.jpg"
+              onError={(e) => console.error(`Failed to load image for ${apartment.name}`, e)}
+              onLoad={() => console.log(`Successfully loaded image for ${apartment.name}`)}
             />
             <div className="absolute top-4 right-4">
               <Badge className="bg-white/90 text-primary border-0">

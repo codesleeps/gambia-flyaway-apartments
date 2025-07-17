@@ -1,12 +1,31 @@
 import React, { useState } from 'react';
-import { OptimizedImageProps } from '@/utils/imageUtils';
+
+export interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  className?: string;
+  loading?: 'eager' | 'lazy';
+  priority?: boolean;
+  sizes?: string;
+  fallbackSrc?: string;
+  onError?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+  onLoad?: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+}
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({ 
   src, 
   alt, 
+  width,
+  height,
   className = '', 
   sizes = '(max-width: 768px) 400px, (max-width: 1024px) 600px, 800px',
-  priority = false 
+  priority = false,
+  fallbackSrc = '/images/placeholder-apartment.jpg',
+  onError,
+  onLoad,
+  ...props
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
