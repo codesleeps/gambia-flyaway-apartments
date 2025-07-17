@@ -49,11 +49,9 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
     }
     
     // Use optimized apartment images from the apartments folder
-    // For now, use apartment 1 images as default
-    const apartmentImagePath = `/images/apartments/apt1_large-800x600.webp`;
-    
-    // Fallback to generic gradient if no image
-    return apartmentImagePath;
+    // Default to apartment-1 if apartment ID is not recognized
+    const apartmentId = apartment.id || '1';
+    return `/images/apartments/apartment-${apartmentId}-800x600.webp`;
   };
 
   const getAmenityIcon = (amenity: string) => {
@@ -81,9 +79,9 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
         <CardHeader className="p-0">
           <div className="relative h-48 bg-gradient-to-br from-orange-100 to-orange-200 overflow-hidden">
             <OptimizedImage
-              src="/images/apartments/apt1_large-800x600.webp"
+              src={`/images/apartments/apartment-${apartment.id || '1'}-800x600.webp`}
               alt={apartment.name}
-              className="w-full h-full group-hover:scale-110 transition-transform duration-500"
+              className="w-full h-full group-hover:scale-110 transition-transform duration-500 object-cover"
               sizes="(max-width: 768px) 400px, (max-width: 1024px) 600px, 800px"
               priority={false}
             />
