@@ -33,7 +33,10 @@ jobs:
       - name: Build
         run: |
           npm run build
+          # Create necessary files for SPA routing
+          echo '<!DOCTYPE html><html><head><meta http-equiv="Refresh" content="0; url=/gambia-flyaway-apartments/" /></head><body><p>Redirecting...</p></body></html>' > dist/404.html
           touch dist/.nojekyll
+          cp dist/index.html dist/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v3

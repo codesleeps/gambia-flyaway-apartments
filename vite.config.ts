@@ -8,8 +8,14 @@ export default defineConfig(({ mode }) => {
   const isProd = mode === 'production';
   const base = isProd ? '/gambia-flyaway-apartments/' : '/';
   
+  // For GitHub Pages
+  if (isProd) {
+    process.env.NODE_ENV = 'production';
+    process.env.BASE_URL = base;
+  }
+  
   return {
-    base,
+    base: '/gambia-flyaway-apartments/',
     server: {
       host: "::",
       port: 8080,
