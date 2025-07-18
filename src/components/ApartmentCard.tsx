@@ -10,12 +10,12 @@ import OptimizedImage from './OptimizedImage';
 
 // Generic apartment images
 const genericImages = [
-  '/apartment-1.jpg',
-  '/apartment-2.jpg',
-  '/apartment-3.jpg',
-  '/apartment-4.jpg',
-  '/apartment-5.jpg',
-  '/apartment-6.jpg',
+  '/images/apartments/apartment-1-800x600.jpg',
+  '/images/apartments/apt2-800x600.jpg',
+  '/images/apartments/apartment-3-800x600.jpg',
+  '/images/apartments/apartment-4-800x600.jpg',
+  '/images/apartments/apt5_800x600.jpg',
+  '/images/apartments/apt6-800x600.jpg'
 ];
 
 interface Apartment {
@@ -41,26 +41,19 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
   const navigate = useNavigate();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
-  // Get optimized image URL based on apartment ID
+  // Get image URL based on apartment ID
   const getImageUrl = () => {
-    // Use actual apartment images if available
-    if (apartment.image_url && apartment.image_url !== '/placeholder.svg' && apartment.image_url !== '') {
-      return apartment.image_url;
-    }
-    
-    const apartmentId = apartment.id || '1';
-    
-    // Handle different image naming patterns for specific apartments
-    if (apartmentId === '2') {
-      return `/images/apartments/apt2-800x600.jpg`;
-    } else if (apartmentId === '5') {
-      return `/images/apartments/apt5_800x600.jpg`;
-    } else if (apartmentId === '6') {
-      return `/images/apartments/apt6-800x600.jpg`;
-    }
-    
-    // Default pattern for other apartments
-    return `/images/apartments/apartment-${apartmentId}-800x600.jpg`;
+    const base = window.location.origin + import.meta.env.BASE_URL;
+    const imageMap = {
+      '1': new URL('images/apartments/apartment-1-800x600.jpg', base).href,
+      '2': new URL('images/apartments/apt2-800x600.jpg', base).href,
+      '3': new URL('images/apartments/apartment-3-800x600.jpg', base).href,
+      '4': new URL('images/apartments/apartment-4-800x600.jpg', base).href,
+      '5': new URL('images/apartments/apt5_800x600.jpg', base).href,
+      '6': new URL('images/apartments/apt6-800x600.jpg', base).href
+    };
+    // Use the mapped image or fallback to the first image
+    return imageMap[apartment.id as keyof typeof imageMap] || new URL('images/apartments/apartment-1-800x600.jpg', base).href;
   };
 
   const getAmenityIcon = (amenity: string) => {
@@ -87,18 +80,19 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
       <Card className="card-hover overflow-hidden group">
         <CardHeader className="p-0">
           <div className="relative h-48 bg-gradient-to-br from-orange-100 to-orange-200 overflow-hidden">
-            <OptimizedImage
-              src={getImageUrl()}
-              alt={`${apartment.name} in ${apartment.location}`}
-              width={800}
-              height={600}
-              className="w-full h-full group-hover:scale-110 transition-transform duration-500"
-              sizes="(max-width: 768px) 400px, (max-width: 1024px) 600px, 800px"
-              priority={false}
-              fallbackSrc="/images/placeholder-apartment.jpg"
-              onError={(e) => console.error(`Failed to load image for ${apartment.name}`, e)}
-              onLoad={() => console.log(`Successfully loaded image for ${apartment.name}`)}
-            />
+            <div className="w-full h-full overflow-hidden">
+              <img
+                src={getImageUrl()}
+                alt={`${apartment.name} in ${apartment.location}`}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                onError={(e) => {
+                  console.error('Image failed to load:', e);
+                  // Set a fallback source
+                  const base = window.location.origin + import.meta.env.BASE_URL;
+                  e.currentTarget.src = new URL('images/apartments/apartment-1-800x600.jpg', base).href;
+                }}
+                onLoad={() => console.log('Image loaded successfully')}
+              />
             <div className="absolute top-4 right-4">
               <Badge className="bg-white/90 text-primary border-0">
                 ${apartment.price}/night
@@ -108,6 +102,7 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
               <span className="text-sm font-medium">{apartment.rating}</span>
               <span className="text-xs text-muted-foreground">({apartment.reviews})</span>
+            </div>
             </div>
           </div>
         </CardHeader>

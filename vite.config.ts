@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
   }
   
   return {
-    base: '/gambia-flyaway-apartments/',
+    base: base,
     server: {
       host: "::",
       port: 8080,
