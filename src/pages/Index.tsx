@@ -1,78 +1,92 @@
-import React from 'react';
+import React from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Star, Wifi, Car, Waves, Users } from 'lucide-react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import ApartmentCard from '../components/ApartmentCard';
-import { useApartments } from '../hooks/useApartments';
+import { MapPin, Star, Wifi, Car, Waves, Users } from "lucide-react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import ApartmentCard from "../components/ApartmentCard";
+import { useApartments } from "../hooks/useApartments";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const Index = () => {
   const { data: apartments, isLoading, error } = useApartments();
-  
-  console.log('Index component - isLoading:', isLoading, 'error:', error, 'apartments:', apartments);
+
+  console.log(
+    "Index component - isLoading:",
+    isLoading,
+    "error:",
+    error,
+    "apartments:",
+    apartments
+  );
 
   const scrollToApartments = () => {
-    const apartmentsSection = document.getElementById('apartments');
+    const apartmentsSection = document.getElementById("apartments");
     if (apartmentsSection) {
-      apartmentsSection.scrollIntoView({ behavior: 'smooth' });
+      apartmentsSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
     <div className="min-h-screen">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="relative py-24 px-4">
+
+      {/* Hero Section - Restored */}
+      <section className="relative min-h-[400px] md:min-h-[600px] flex items-center justify-center py-24 px-4 overflow-hidden">
         {/* Responsive Background Images */}
-        <picture className="absolute inset-0">
+        <picture className="absolute inset-0 w-full h-full z-0 pointer-events-none">
           {/* WebP format for modern browsers */}
           <source
             media="(min-width: 1024px)"
-            srcSet="/images/hero/hero-1920x1080.webp"
+            srcSet="/gambia-flyaway-apartments/images/hero/hero-1920x1080.webp"
             type="image/webp"
           />
           <source
             media="(min-width: 768px)"
-            srcSet="/images/hero/hero-1280x720.webp"
+            srcSet="/gambia-flyaway-apartments/images/hero/hero-1280x720.webp"
             type="image/webp"
           />
           <source
-            srcSet="/images/hero/hero-800x600.webp"
+            srcSet="/gambia-flyaway-apartments/images/hero/hero-800x600.webp"
             type="image/webp"
           />
-          
+
           {/* JPG fallbacks */}
           <source
             media="(min-width: 1024px)"
-            srcSet="/images/hero/hero-1920x1080.jpg"
+            srcSet="/gambia-flyaway-apartments/images/hero/hero-1920x1080.jpg"
           />
           <source
             media="(min-width: 768px)"
-            srcSet="/images/hero/hero-1280x720.jpg"
+            srcSet="/gambia-flyaway-apartments/images/hero/hero-1280x720.jpg"
           />
           <img
-            src="/images/hero/hero-800x600.jpg"
+            src="/gambia-flyaway-apartments/images/hero/hero-800x600.jpg"
             alt="Beautiful Gambia apartment complex with tropical vegetation"
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover z-0"
           />
         </picture>
-        
+
         {/* Background Overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/40 z-10"></div>
         {/* Content */}
-        <div className="relative z-10 container mx-auto text-center text-white">
+        <div className="relative z-20 container mx-auto text-center text-white flex flex-col items-center justify-center h-full">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             Discover Paradise in The Gambia
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
-            Experience luxury and comfort in our stunning apartments across The Gambia's most beautiful locations
+            Experience luxury and comfort in our stunning apartments across The
+            Gambia's most beautiful locations
           </p>
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
             className="bg-white text-primary hover:bg-gray-100 text-lg px-8 py-3"
             onClick={scrollToApartments}
           >
@@ -90,21 +104,26 @@ const Index = () => {
                 Welcome to <span className="text-primary">Gambia Stay</span>
               </h2>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                We are passionate about providing exceptional accommodation experiences in The Gambia, 
-                a country known for its stunning beaches, rich culture, and warm hospitality. Our 
-                carefully curated collection of apartments offers the perfect blend of comfort, 
-                luxury, and authentic Gambian charm.
+                We are passionate about providing exceptional accommodation
+                experiences in The Gambia, a country known for its stunning
+                beaches, rich culture, and warm hospitality. Our carefully
+                curated collection of apartments offers the perfect blend of
+                comfort, luxury, and authentic Gambian charm.
               </p>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Whether you're seeking a romantic getaway, a family vacation, or a business trip, 
-                our properties are strategically located in prime areas, offering easy access to 
-                beautiful beaches, local markets, and cultural attractions. Each apartment is 
-                thoughtfully designed to ensure your stay is nothing short of extraordinary.
+                Whether you're seeking a romantic getaway, a family vacation, or
+                a business trip, our properties are strategically located in
+                prime areas, offering easy access to beautiful beaches, local
+                markets, and cultural attractions. Each apartment is
+                thoughtfully designed to ensure your stay is nothing short of
+                extraordinary.
               </p>
-              
+
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center p-4 bg-primary/5 rounded-lg">
-                  <div className="text-3xl font-bold text-primary mb-2">50+</div>
+                  <div className="text-3xl font-bold text-primary mb-2">
+                    50+
+                  </div>
                   <div className="text-sm text-gray-600">Happy Guests</div>
                 </div>
                 <div className="text-center p-4 bg-primary/5 rounded-lg">
@@ -113,7 +132,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="relative">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
@@ -122,9 +141,12 @@ const Index = () => {
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                         <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
-                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">Prime Beach Locations</h3>
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">
+                        Prime Beach Locations
+                      </h3>
                       <p className="text-gray-600 text-xs sm:text-sm break-words leading-tight">
-                        All our apartments are located near beautiful beaches in The Gambia
+                        All our apartments are located near beautiful beaches in
+                        The Gambia
                       </p>
                     </div>
                   </div>
@@ -133,9 +155,12 @@ const Index = () => {
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                         <Star className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
-                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">5-Star Quality</h3>
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">
+                        5-Star Quality
+                      </h3>
                       <p className="text-gray-600 text-xs sm:text-sm leading-tight break-words overflow-hidden">
-                        Every property meets our high standards for comfort, cleanliness, and amenities
+                        Every property meets our high standards for comfort,
+                        cleanliness, and amenities
                       </p>
                     </div>
                   </div>
@@ -146,9 +171,12 @@ const Index = () => {
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                         <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
-                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">Local Experience</h3>
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">
+                        Local Experience
+                      </h3>
                       <p className="text-gray-600 text-xs sm:text-sm leading-tight">
-                        Immerse yourself in authentic Gambian culture and hospitality
+                        Immerse yourself in authentic Gambian culture and
+                        hospitality
                       </p>
                     </div>
                   </div>
@@ -157,9 +185,12 @@ const Index = () => {
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
                         <Wifi className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
-                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">Modern Amenities</h3>
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 leading-tight">
+                        Modern Amenities
+                      </h3>
                       <p className="text-gray-600 text-xs sm:text-sm leading-tight break-words overflow-hidden">
-                        Enjoy modern comforts while experiencing the beauty of The Gambia
+                        Enjoy modern comforts while experiencing the beauty of
+                        The Gambia
                       </p>
                     </div>
                   </div>
@@ -174,12 +205,15 @@ const Index = () => {
       <section id="apartments" className="py-16 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Our Beautiful Apartments</h2>
+            <h2 className="text-4xl font-bold mb-4">
+              Our Beautiful Apartments
+            </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Choose from our collection of carefully selected apartments, each offering unique experiences and stunning views
+              Choose from our collection of carefully selected apartments, each
+              offering unique experiences and stunning views
             </p>
           </div>
-          
+
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -196,7 +230,9 @@ const Index = () => {
             </div>
           ) : error ? (
             <div className="text-center py-8">
-              <p className="text-red-500">Error loading apartments: {error.message}</p>
+              <p className="text-red-500">
+                Error loading apartments: {error.message}
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -218,7 +254,8 @@ const Index = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">Prime Locations</h3>
               <p className="text-muted-foreground">
-                All apartments located near beautiful beaches and key attractions
+                All apartments located near beautiful beaches and key
+                attractions
               </p>
             </div>
             <div className="text-center">
@@ -244,25 +281,41 @@ const Index = () => {
       </section>
 
       {/* Attractions Section */}
-      <section id="attractions" className="py-20 px-4 bg-gradient-to-br from-blue-50 to-cyan-50">
+      <section
+        id="attractions"
+        className="py-20 px-4 bg-gradient-to-br from-blue-50 to-cyan-50"
+      >
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Discover The Gambia's Treasures</h2>
+            <h2 className="text-4xl font-bold mb-4">
+              Discover The Gambia's Treasures
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              From pristine beaches to vibrant local culture, explore the natural beauty and rich experiences that make The Gambia truly special
+              From pristine beaches to vibrant local culture, explore the
+              natural beauty and rich experiences that make The Gambia truly
+              special
             </p>
           </div>
 
           {/* Fact Bar */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-10">
             <div className="bg-primary/10 rounded-lg px-6 py-3 flex items-center gap-2 text-primary font-semibold text-base shadow-sm">
-              <span role="img" aria-label="Bird">🦜</span> 560+ bird species
+              <span role="img" aria-label="Bird">
+                🦜
+              </span>{" "}
+              560+ bird species
             </div>
             <div className="bg-primary/10 rounded-lg px-6 py-3 flex items-center gap-2 text-primary font-semibold text-base shadow-sm">
-              <span role="img" aria-label="Coastline">🏖️</span> 80km Atlantic coastline
+              <span role="img" aria-label="Coastline">
+                🏖️
+              </span>{" "}
+              80km Atlantic coastline
             </div>
             <div className="bg-primary/10 rounded-lg px-6 py-3 flex items-center gap-2 text-primary font-semibold text-base shadow-sm">
-              <span role="img" aria-label="Sun">☀️</span> Year-round sunshine
+              <span role="img" aria-label="Sun">
+                ☀️
+              </span>{" "}
+              Year-round sunshine
             </div>
           </div>
 
@@ -275,7 +328,8 @@ const Index = () => {
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-3">Pristine Beaches</h3>
                 <p className="text-muted-foreground mb-4">
-                  Miles of golden sandy beaches along the Atlantic coast, perfect for swimming, sunbathing, and water sports
+                  Miles of golden sandy beaches along the Atlantic coast,
+                  perfect for swimming, sunbathing, and water sports
                 </p>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center">
@@ -302,7 +356,8 @@ const Index = () => {
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-3">Natural Parks</h3>
                 <p className="text-muted-foreground mb-4">
-                  Explore lush national parks and wildlife reserves teeming with exotic birds and diverse wildlife
+                  Explore lush national parks and wildlife reserves teeming with
+                  exotic birds and diverse wildlife
                 </p>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center">
@@ -329,7 +384,8 @@ const Index = () => {
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-3">Local Cuisine</h3>
                 <p className="text-muted-foreground mb-4">
-                  Savor authentic Gambian flavors with fresh seafood, traditional dishes, and vibrant street food culture
+                  Savor authentic Gambian flavors with fresh seafood,
+                  traditional dishes, and vibrant street food culture
                 </p>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center">
@@ -356,7 +412,8 @@ const Index = () => {
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-3">Cultural Scenery</h3>
                 <p className="text-muted-foreground mb-4">
-                  Immerse yourself in vibrant local culture, traditional villages, and breathtaking river views
+                  Immerse yourself in vibrant local culture, traditional
+                  villages, and breathtaking river views
                 </p>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center">
