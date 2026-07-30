@@ -45,30 +45,30 @@ const Index = () => {
           {/* WebP format for modern browsers */}
           <source
             media="(min-width: 1024px)"
-            srcSet="/gambia-flyaway-apartments/images/hero/hero-1920x1080.webp"
+            srcSet="images/hero/hero-1920x1080.webp"
             type="image/webp"
           />
           <source
             media="(min-width: 768px)"
-            srcSet="/gambia-flyaway-apartments/images/hero/hero-1280x720.webp"
+            srcSet="images/hero/hero-1280x720.webp"
             type="image/webp"
           />
           <source
-            srcSet="/gambia-flyaway-apartments/images/hero/hero-800x600.webp"
+            srcSet="images/hero/hero-800x600.webp"
             type="image/webp"
           />
 
           {/* JPG fallbacks */}
           <source
             media="(min-width: 1024px)"
-            srcSet="/gambia-flyaway-apartments/images/hero/hero-1920x1080.jpg"
+            srcSet="images/hero/hero-1920x1080.jpg"
           />
           <source
             media="(min-width: 768px)"
-            srcSet="/gambia-flyaway-apartments/images/hero/hero-1280x720.jpg"
+            srcSet="images/hero/hero-1280x720.jpg"
           />
           <img
-            src="/gambia-flyaway-apartments/images/hero/hero-800x600.jpg"
+            src="images/hero/hero-800x600.jpg"
             alt="Beautiful Gambia apartment complex with tropical vegetation"
             className="absolute inset-0 w-full h-full object-cover z-0"
           />

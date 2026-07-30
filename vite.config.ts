@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/gambia-flyaway-apartments/", // Set base to repo name for GitHub Pages
+  base: "./",
   plugins: [react()],
   resolve: {
     alias: {
