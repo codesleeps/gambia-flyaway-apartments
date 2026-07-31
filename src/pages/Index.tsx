@@ -5,7 +5,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Star, Wifi, Car, Waves, Users, Sparkles, Shield, Compass, Heart } from "lucide-react";
+import { MapPin, Star, Waves, Users, Sparkles, Shield, Compass, Utensils, Trees, Landmark, Check } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ApartmentCard from "../components/ApartmentCard";
@@ -13,6 +13,60 @@ import SearchFilterBar, { FilterState } from "../components/SearchFilterBar";
 import ReviewsSection from "../components/ReviewsSection";
 import { useApartments } from "../hooks/useApartments";
 import { Skeleton } from "@/components/ui/skeleton";
+
+interface Attraction {
+  id: string;
+  title: string;
+  category: string;
+  image: string;
+  fallbackGradient: string;
+  description: string;
+  highlights: string[];
+  icon: React.ReactNode;
+}
+
+const attractionsData: Attraction[] = [
+  {
+    id: "beaches",
+    title: "Pristine Atlantic Beaches",
+    category: "Coastline",
+    image: "images/apartments/apartment-1-800x600.jpg",
+    fallbackGradient: "from-blue-600 via-cyan-600 to-teal-500",
+    description: "Miles of golden sandy beaches along the Atlantic coast, perfect for swimming, sunbathing, and sunset cocktails.",
+    highlights: ["Kotu Beach & Sun loungers", "Bijilo Golden Coast", "Senegambia Sunset Strip"],
+    icon: <Waves className="w-5 h-5 text-cyan-400" />
+  },
+  {
+    id: "parks",
+    title: "Lush Natural Reserves",
+    category: "Wildlife",
+    image: "images/apartments/apartment-3-800x600.jpg",
+    fallbackGradient: "from-emerald-700 via-green-600 to-teal-600",
+    description: "Explore lush tropical rainforest sanctuaries teeming with exotic monkeys, colorful kingfishers, and over 560 bird species.",
+    highlights: ["Bijilo Monkey Forest Park", "Abuko Nature Reserve", "River Gambia Safari"],
+    icon: <Trees className="w-5 h-5 text-emerald-400" />
+  },
+  {
+    id: "cuisine",
+    title: "Authentic Local Cuisine",
+    category: "Gastronomy",
+    image: "images/apartments/apt2-800x600.jpg",
+    fallbackGradient: "from-amber-600 via-orange-600 to-red-600",
+    description: "Savor authentic Gambian culinary delights, from savory Domoda peanut stew to fresh wild Atlantic snapper and tiger prawns.",
+    highlights: ["Domoda Peanut Stew", "Fresh Atlantic Seafood", "Albert Market Spice Stalls"],
+    icon: <Utensils className="w-5 h-5 text-amber-400" />
+  },
+  {
+    id: "culture",
+    title: "Vibrant Cultural Scenery",
+    category: "Heritage",
+    image: "images/apartments/apt5_800x600.jpg",
+    fallbackGradient: "from-purple-700 via-indigo-700 to-slate-800",
+    description: "Immerse yourself in authentic Gambian heritage, kora string music, hand-carved wooden sculptures, and warm village hospitality.",
+    highlights: ["Serrekunda Craft Market", "Traditional Kora Music", "Historical Juffureh Village"],
+    icon: <Landmark className="w-5 h-5 text-purple-400" />
+  }
+];
 
 const Index = () => {
   const { data: apartments, isLoading, error } = useApartments();
@@ -214,62 +268,96 @@ const Index = () => {
       {/* Guest Reviews Section */}
       <ReviewsSection />
 
-      {/* Gambian Attractions Showcase */}
+      {/* Discover The Gambia's Treasures (With Actual Real Images & Cards) */}
       <section id="attractions" className="py-20 px-4 bg-slate-900 text-white relative overflow-hidden">
         <div className="container mx-auto relative z-10">
           <div className="text-center mb-14">
-            <Badge className="bg-orange-500/20 text-orange-400 border-0 px-3 py-1 mb-3 text-xs">
-              Explore The Gambia
+            <Badge className="bg-orange-500/20 text-orange-400 border-0 px-3.5 py-1 mb-3 text-xs font-semibold">
+              Explore The Smiling Coast
             </Badge>
             <h2 className="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight">
-              Discover The Smiling Coast
+              Discover The Gambia's Treasures
             </h2>
-            <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto">
-              From golden sandy beaches to wildlife sanctuaries and vibrant craft markets.
+            <p className="text-slate-400 text-base md:text-lg max-w-3xl mx-auto font-light">
+              From pristine Atlantic golden beaches to exotic wildlife sanctuaries and rich local heritage.
             </p>
           </div>
 
-          {/* Quick Highlight Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 rounded-2xl bg-slate-800/80 border border-slate-700/60 hover:border-orange-500/50 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center mb-4">
-                <Waves className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold mb-2">80km Coastline</h3>
-              <p className="text-slate-400 text-xs leading-relaxed">
-                Pristine Atlantic ocean beaches with warm water, beach bars, and sunsets.
-              </p>
+          {/* Fact Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+            <div className="bg-slate-800/80 border border-slate-700/60 rounded-xl px-5 py-2.5 flex items-center gap-2.5 text-orange-400 font-semibold text-xs sm:text-sm shadow-md">
+              <span className="text-base">🦜</span> 560+ Exotic Bird Species
             </div>
+            <div className="bg-slate-800/80 border border-slate-700/60 rounded-xl px-5 py-2.5 flex items-center gap-2.5 text-cyan-400 font-semibold text-xs sm:text-sm shadow-md">
+              <span className="text-base">🏖️</span> 80km Atlantic Coastline
+            </div>
+            <div className="bg-slate-800/80 border border-slate-700/60 rounded-xl px-5 py-2.5 flex items-center gap-2.5 text-amber-400 font-semibold text-xs sm:text-sm shadow-md">
+              <span className="text-base">☀️</span> Year-Round Sun & Warmth
+            </div>
+          </div>
 
-            <div className="p-6 rounded-2xl bg-slate-800/80 border border-slate-700/60 hover:border-orange-500/50 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
-                <MapPin className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold mb-2">Nature Reserves</h3>
-              <p className="text-slate-400 text-xs leading-relaxed">
-                Bijilo Forest Park & Abuko Nature Reserve with monkeys and 560+ bird species.
-              </p>
-            </div>
+          {/* 4 Attraction Cards with Real Images */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {attractionsData.map((item) => (
+              <Card key={item.id} className="card-hover bg-slate-800/90 border border-slate-700/70 overflow-hidden group rounded-2xl flex flex-col justify-between h-full shadow-xl">
+                <div>
+                  {/* Card Image Box */}
+                  <div className="relative h-48 overflow-hidden">
+                    <div className={`absolute inset-0 bg-gradient-to-br ${item.fallbackGradient} opacity-90 group-hover:scale-105 transition-transform duration-700`} />
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover relative z-10 mix-blend-overlay group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent z-20" />
+                    
+                    <div className="absolute top-3 left-3 z-30">
+                      <Badge className="bg-slate-950/80 text-white border border-white/20 backdrop-blur-md text-[11px] font-semibold px-2.5 py-0.5">
+                        {item.category}
+                      </Badge>
+                    </div>
 
-            <div className="p-6 rounded-2xl bg-slate-800/80 border border-slate-700/60 hover:border-orange-500/50 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4">
-                <Star className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold mb-2">Rich Culture</h3>
-              <p className="text-slate-400 text-xs leading-relaxed">
-                Traditional kora music, vibrant markets, and mouth-watering Domoda peanut stew.
-              </p>
-            </div>
+                    <div className="absolute bottom-3 left-3 z-30 flex items-center gap-2">
+                      <div className="p-2 rounded-lg bg-slate-950/80 border border-white/10 backdrop-blur-md">
+                        {item.icon}
+                      </div>
+                      <h3 className="text-base font-bold text-white leading-tight drop-shadow-md">
+                        {item.title}
+                      </h3>
+                    </div>
+                  </div>
 
-            <div className="p-6 rounded-2xl bg-slate-800/80 border border-slate-700/60 hover:border-orange-500/50 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold mb-2">Warm Hospitality</h3>
-              <p className="text-slate-400 text-xs leading-relaxed">
-                Renowned friendliness makes The Gambia one of the safest African destinations.
-              </p>
-            </div>
+                  {/* Card Content Body */}
+                  <CardContent className="p-5">
+                    <p className="text-slate-300 text-xs leading-relaxed mb-4">
+                      {item.description}
+                    </p>
+
+                    <div className="space-y-2 pt-2 border-t border-slate-700/60">
+                      {item.highlights.map((highlight, idx) => (
+                        <div key={idx} className="flex items-center text-xs text-slate-300">
+                          <Check className="w-3.5 h-3.5 text-orange-400 mr-2 shrink-0" />
+                          <span>{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <a
+              href="https://www.visitthegambia.gm/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Button size="lg" className="booking-gradient text-white font-semibold text-sm px-8 py-3 rounded-xl shadow-xl hover:scale-105 transition-all">
+                Explore All Gambia Attractions
+              </Button>
+            </a>
           </div>
         </div>
       </section>
