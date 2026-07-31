@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import BookingModal from './BookingModal';
 import { toast } from 'sonner';
+import { getImagePath, handleImageError } from '@/utils/imageUtils';
 
 interface Apartment {
   id: string;
@@ -61,18 +62,18 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
     }
   };
 
-  // Get image URL based on apartment ID
-  const getImageUrl = () => {
-    const base = window.location.origin + import.meta.env.BASE_URL;
-    const imageMap = {
-      '1': new URL('images/apartments/apartment-1-800x600.jpg', base).href,
-      '2': new URL('images/apartments/apt2-800x600.jpg', base).href,
-      '3': new URL('images/apartments/apartment-3-800x600.jpg', base).href,
-      '4': new URL('images/apartments/apartment-4-800x600.jpg', base).href,
-      '5': new URL('images/apartments/apt5_800x600.jpg', base).href,
-      '6': new URL('images/apartments/apt6-800x600.jpg', base).href
+  // Map apartment ID to specific high-res image or fallback to apartment.image_url
+  const getApartmentSrc = () => {
+    const map: Record<string, string> = {
+      '1': 'images/apartments/apartment-1-800x600.jpg',
+      '2': 'images/apartments/apt2-800x600.jpg',
+      '3': 'images/apartments/apartment-3-800x600.jpg',
+      '4': 'images/apartments/apartment-4-800x600.jpg',
+      '5': 'images/apartments/apt5_800x600.jpg',
+      '6': 'images/apartments/apt6-800x600.jpg',
     };
-    return imageMap[apartment.id as keyof typeof imageMap] || new URL('images/apartments/apartment-1-800x600.jpg', base).href;
+    const targetPath = map[apartment.id] || apartment.image_url || 'images/apartments/apartment-1-800x600.jpg';
+    return getImagePath(targetPath);
   };
 
   const getAmenityIcon = (amenity: string) => {
@@ -101,18 +102,15 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
         <CardHeader className="p-0 relative">
           <div className="relative h-56 bg-slate-100 overflow-hidden">
             <img
-              src={getImageUrl()}
+              src={getApartmentSrc()}
               alt={`${apartment.name} in ${apartment.location}`}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-              onError={(e) => {
-                const base = window.location.origin + import.meta.env.BASE_URL;
-                e.currentTarget.src = new URL('images/apartments/apartment-1-800x600.jpg', base).href;
-              }}
+              onError={(e) => handleImageError(e, '/images/apartments/apartment-1-800x600.jpg')}
             />
 
             {/* Price Tag Overlay */}
             <div className="absolute top-3 right-3">
-              <Badge className="bg-slate-900/80 backdrop-blur-md text-white border-0 text-xs px-3 py-1 font-bold shadow-lg">
+              <Badge className="bg-slate-950/80 backdrop-blur-md text-white border-0 text-xs px-3 py-1 font-bold shadow-lg">
                 ${apartment.price} <span className="font-normal text-[10px] text-gray-300 ml-0.5">/ night</span>
               </Badge>
             </div>

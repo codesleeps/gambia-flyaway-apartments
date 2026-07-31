@@ -13,6 +13,7 @@ import SearchFilterBar, { FilterState } from "../components/SearchFilterBar";
 import ReviewsSection from "../components/ReviewsSection";
 import { useApartments } from "../hooks/useApartments";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getImagePath, handleImageError } from "@/utils/imageUtils";
 
 interface Attraction {
   id: string;
@@ -149,13 +150,14 @@ const Index = () => {
       <section className="relative min-h-[550px] md:min-h-[650px] flex items-center justify-center py-20 px-4 overflow-hidden">
         {/* Background Responsive Image */}
         <picture className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-          <source media="(min-width: 1024px)" srcSet="images/hero/hero-1920x1080.webp" type="image/webp" />
-          <source media="(min-width: 768px)" srcSet="images/hero/hero-1280x720.webp" type="image/webp" />
-          <source srcSet="images/hero/hero-800x600.webp" type="image/webp" />
+          <source media="(min-width: 1024px)" srcSet={getImagePath("images/hero/hero-1920x1080.webp")} type="image/webp" />
+          <source media="(min-width: 768px)" srcSet={getImagePath("images/hero/hero-1280x720.webp")} type="image/webp" />
+          <source srcSet={getImagePath("images/hero/hero-800x600.webp")} type="image/webp" />
           <img
-            src="images/hero/hero-800x600.jpg"
+            src={getImagePath("images/hero/hero-800x600.jpg")}
             alt="Beautiful Gambia apartment complex with tropical vegetation"
             className="absolute inset-0 w-full h-full object-cover z-0 scale-105 transform animate-pulse-slow"
+            onError={(e) => handleImageError(e, '/images/hero/hero-800x600.jpg')}
           />
         </picture>
 
@@ -268,7 +270,7 @@ const Index = () => {
       {/* Guest Reviews Section */}
       <ReviewsSection />
 
-      {/* Discover The Gambia's Treasures (With Actual Real Images & Cards) */}
+      {/* Discover The Gambia's Treasures */}
       <section id="attractions" className="py-20 px-4 bg-slate-900 text-white relative overflow-hidden">
         <div className="container mx-auto relative z-10">
           <div className="text-center mb-14">
@@ -302,22 +304,22 @@ const Index = () => {
               <Card key={item.id} className="card-hover bg-slate-800/90 border border-slate-700/70 overflow-hidden group rounded-2xl flex flex-col justify-between h-full shadow-xl">
                 <div>
                   {/* Card Image Box */}
-                  <div className="relative h-48 overflow-hidden">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${item.fallbackGradient} opacity-90 group-hover:scale-105 transition-transform duration-700`} />
+                  <div className="relative h-48 overflow-hidden bg-slate-900">
                     <img
-                      src={item.image}
+                      src={getImagePath(item.image)}
                       alt={item.title}
-                      className="w-full h-full object-cover relative z-10 mix-blend-overlay group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      onError={(e) => handleImageError(e, '/images/apartments/apartment-1-800x600.jpg')}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent z-20" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10" />
                     
-                    <div className="absolute top-3 left-3 z-30">
+                    <div className="absolute top-3 left-3 z-20">
                       <Badge className="bg-slate-950/80 text-white border border-white/20 backdrop-blur-md text-[11px] font-semibold px-2.5 py-0.5">
                         {item.category}
                       </Badge>
                     </div>
 
-                    <div className="absolute bottom-3 left-3 z-30 flex items-center gap-2">
+                    <div className="absolute bottom-3 left-3 z-20 flex items-center gap-2">
                       <div className="p-2 rounded-lg bg-slate-950/80 border border-white/10 backdrop-blur-md">
                         {item.icon}
                       </div>

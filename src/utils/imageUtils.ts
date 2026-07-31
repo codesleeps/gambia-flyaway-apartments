@@ -1,38 +1,47 @@
-// Image optimization utility
-export const getOptimizedImageUrl = (imagePath: string, size: 'mobile' | 'tablet' | 'desktop' = 'desktop') => {
-  const sizeMap = {
-    mobile: 'w_400,h_300',
-    tablet: 'w_600,h_450', 
-    desktop: 'w_800,h_600'
-  };
-  
-  // For now, return the original path
-  // Later you can integrate with image CDN or optimization service
-  return imagePath;
+/**
+ * Resolves static asset image paths for dev and production deployments.
+ */
+export const getImagePath = (path: string): string => {
+  if (!path) return '/images/apartments/apartment-1-800x600.jpg';
+
+  // If path is an absolute URL (http/https/data:), return as is
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) {
+    return path;
+  }
+
+  // Remove leading slash if any
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+
+  // In Vite dev mode, assets in public/ are served at root
+  if (import.meta.env.DEV) {
+    return `/${cleanPath}`;
+  }
+
+  // In production (e.g. GitHub Pages with base path), prepend BASE_URL
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const prefix = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+  return `${prefix}${cleanPath}`;
 };
 
-export const getWebPWithFallback = (imagePath: string) => {
-  const webpPath = imagePath.replace(/\.(jpg|jpeg|png)$/i, '.webp');
-  return {
-    webp: webpPath,
-    fallback: imagePath
-  };
-};
+/**
+ * Handle image load errors gracefully by falling back to root path or default placeholder
+ */
+export const handleImageError = (
+  e: React.SyntheticEvent<HTMLImageElement, Event>,
+  fallbackPath = '/images/apartments/apartment-1-800x600.jpg'
+) => {
+  const target = e.currentTarget;
+  // Prevent infinite error loop
+  if (target.dataset.triedFallback === 'true') {
+    return;
+  }
+  target.dataset.triedFallback = 'true';
 
-// Generate responsive image srcSet
-export const generateSrcSet = (basePath: string, imageName: string, extension: string) => {
-  return [
-    `${basePath}/${imageName}-400x300.${extension} 400w`,
-    `${basePath}/${imageName}-600x450.${extension} 600w`,
-    `${basePath}/${imageName}-800x600.${extension} 800w`
-  ].join(', ');
+  // If currently using BASE_URL prefix, try root path first
+  const currentSrc = target.src;
+  if (currentSrc.includes('/gambia-flyaway-apartments/')) {
+    target.src = currentSrc.replace('/gambia-flyaway-apartments/', '/');
+  } else {
+    target.src = fallbackPath.startsWith('/') ? fallbackPath : `/${fallbackPath}`;
+  }
 };
-
-// Image loading component props
-export interface OptimizedImageProps {
-  src: string;
-  alt: string;
-  className?: string;
-  sizes?: string;
-  priority?: boolean;
-}
