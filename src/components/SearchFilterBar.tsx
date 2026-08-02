@@ -28,17 +28,17 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
   const locations = ['All Locations', 'Serrekunda', 'Kololi', 'Banjul', 'Bakau', 'Fajara', 'Juffureh'];
 
   return (
-    <div className="w-full glass-panel shadow-xl rounded-2xl p-4 sm:p-6 mb-8 border border-white/40">
+    <div className="w-full bg-slate-800/90 backdrop-blur-md shadow-xl rounded-2xl p-4 sm:p-6 mb-8 border border-slate-700/60 text-white">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-4">
         {/* Search Input */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <Input
             type="text"
             placeholder="Search apartment name..."
             value={filters.searchQuery}
             onChange={(e) => onFilterChange({ searchQuery: e.target.value })}
-            className="pl-9 bg-white/80 border-gray-200 focus:bg-white text-sm"
+            className="pl-9 bg-slate-900/80 border-slate-700 text-white placeholder:text-gray-400 focus:bg-slate-900 text-sm"
           />
         </div>
 

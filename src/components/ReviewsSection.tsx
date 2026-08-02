@@ -54,16 +54,16 @@ const reviewsData: Review[] = [
 
 const ReviewsSection: React.FC = () => {
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-white via-orange-50/30 to-white">
+    <section className="py-20 px-4 bg-gray-900 text-white">
       <div className="container mx-auto">
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-3">
-            <Star className="w-4 h-4 fill-primary" /> Verified Guest Experiences
+          <div className="inline-flex items-center gap-2 bg-orange-500/20 text-orange-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-3 border border-orange-500/30">
+            <Star className="w-4 h-4 fill-orange-400" /> Verified Guest Experiences
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-gray-900">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-white">
             Loved by Travelers Worldwide
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Read authentic reviews from guests who experienced luxury, comfort, and Gambian hospitality at our apartments.
           </p>
         </div>
@@ -71,8 +71,8 @@ const ReviewsSection: React.FC = () => {
         {/* Reviews Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {reviewsData.map((review) => (
-            <Card key={review.id} className="card-hover border border-gray-100 shadow-md relative overflow-hidden bg-white/90 backdrop-blur-sm">
-              <div className="absolute top-4 right-4 text-orange-200/50">
+            <Card key={review.id} className="card-hover border border-slate-700/60 shadow-xl relative overflow-hidden bg-slate-800/90 text-white">
+              <div className="absolute top-4 right-4 text-orange-500/20">
                 <Quote className="w-12 h-12" />
               </div>
               <CardContent className="p-6 relative z-10 flex flex-col justify-between h-full">
@@ -81,22 +81,22 @@ const ReviewsSection: React.FC = () => {
                     {[...Array(review.rating)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
                     ))}
-                    <span className="text-xs font-semibold text-gray-700 ml-1">5.0</span>
+                    <span className="text-xs font-semibold text-gray-200 ml-1">5.0</span>
                   </div>
 
-                  <p className="text-gray-700 text-sm leading-relaxed mb-6 italic">
+                  <p className="text-gray-300 text-sm leading-relaxed mb-6 italic">
                     "{review.comment}"
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+                <div className="pt-4 border-t border-slate-700/60 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <Avatar className="w-10 h-10 border border-primary/20">
+                    <Avatar className="w-10 h-10 border border-orange-500/40">
                       <AvatarImage src={review.avatar} alt={review.name} />
                       <AvatarFallback>{review.name[0]}</AvatarFallback>
                     </Avatar>
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-1">
+                      <h4 className="text-sm font-semibold text-white flex items-center gap-1">
                         {review.name}
                         {review.verified && (
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 fill-emerald-100" />

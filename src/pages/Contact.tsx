@@ -57,7 +57,7 @@ const Contact = () => {
   };
 
   return (
-    <div id="contact" className="min-h-screen bg-background flex flex-col">
+    <div id="contact" className="min-h-screen bg-gray-900 text-white flex flex-col">
       <Header />
       
       {/* Hero Section */}

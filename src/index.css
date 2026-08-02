@@ -85,7 +85,7 @@
   }
 
   body {
-    @apply text-foreground bg-background antialiased;
+    @apply text-slate-100 bg-gray-900 antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

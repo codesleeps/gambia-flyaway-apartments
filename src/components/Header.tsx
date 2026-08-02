@@ -39,7 +39,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+    <header className="bg-gray-900/95 backdrop-blur-md border-b border-gray-800 text-white sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-2 cursor-pointer pointer-events-auto">
           <a href="/#/" className="flex items-center space-x-2">
@@ -47,34 +47,34 @@ const Header = () => {
               <MapPin className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-primary">Gambia Stay</h1>
-              <p className="text-xs text-muted-foreground">Premium Apartments</p>
+              <h1 className="text-xl font-bold text-orange-400">Gambia Stay</h1>
+              <p className="text-xs text-gray-400">Premium Apartments</p>
             </div>
           </a>
         </div>
         
-        <nav className="hidden md:flex items-center space-x-6 pointer-events-auto">
+        <nav className="hidden md:flex items-center space-x-6 pointer-events-auto font-medium text-sm">
           <a 
             href="/#/"
-            className="text-foreground hover:text-primary transition-colors"
+            className="text-gray-300 hover:text-orange-400 transition-colors"
           >
             Home
           </a>
           <button 
             onClick={() => scrollToSection('apartments')}
-            className="text-foreground hover:text-primary transition-colors"
+            className="text-gray-300 hover:text-orange-400 transition-colors"
           >
             Apartments
           </button>
           <button 
             onClick={() => scrollToSection('about')}
-            className="text-foreground hover:text-primary transition-colors"
+            className="text-gray-300 hover:text-orange-400 transition-colors"
           >
             About
           </button>
           <button 
             onClick={() => scrollToSection('attractions')}
-            className="text-foreground hover:text-primary transition-colors"
+            className="text-gray-300 hover:text-orange-400 transition-colors"
           >
             Attractions
           </button>
@@ -85,7 +85,7 @@ const Header = () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }, 100);
             }}
-            className="text-foreground hover:text-primary transition-colors"
+            className="text-gray-300 hover:text-orange-400 transition-colors"
           >
             Contact
           </button>

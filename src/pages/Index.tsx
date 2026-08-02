@@ -143,7 +143,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-gray-900">
+    <div className="min-h-screen bg-gray-900 font-sans text-slate-100">
       <Header />
 
       {/* Hero Section */}
@@ -209,10 +209,10 @@ const Index = () => {
       <section id="apartments" className="py-16 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-5xl font-extrabold mb-3 tracking-tight text-gray-900">
+            <h2 className="text-3xl sm:text-5xl font-extrabold mb-3 tracking-tight text-white">
               Our Premium Apartments
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
               Find your ideal home away from home with luxury amenities, beach access, and authentic hospitality.
             </p>
           </div>

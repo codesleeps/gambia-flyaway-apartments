@@ -98,9 +98,9 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
 
   return (
     <>
-      <Card className="card-hover border border-gray-100 overflow-hidden group bg-white shadow-sm hover:shadow-xl rounded-2xl flex flex-col justify-between h-full">
+      <Card className="card-hover border border-slate-700/60 overflow-hidden group bg-slate-800/90 text-white shadow-xl hover:shadow-2xl rounded-2xl flex flex-col justify-between h-full">
         <CardHeader className="p-0 relative">
-          <div className="relative h-56 bg-slate-100 overflow-hidden">
+          <div className="relative h-56 bg-slate-900 overflow-hidden">
             <img
               src={getApartmentSrc()}
               alt={`${apartment.name} in ${apartment.location}`}
@@ -116,21 +116,21 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
             </div>
 
             {/* Rating Overlay */}
-            <div className="absolute top-3 left-3 flex items-center space-x-1 bg-white/90 backdrop-blur-md rounded-full px-2.5 py-1 shadow-md">
+            <div className="absolute top-3 left-3 flex items-center space-x-1 bg-slate-950/80 backdrop-blur-md rounded-full px-2.5 py-1 shadow-md border border-slate-700/60">
               <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-              <span className="text-xs font-semibold text-gray-900">{apartment.rating}</span>
-              <span className="text-[10px] text-muted-foreground">({apartment.reviews})</span>
+              <span className="text-xs font-semibold text-white">{apartment.rating}</span>
+              <span className="text-[10px] text-gray-300">({apartment.reviews})</span>
             </div>
 
             {/* Favorite Heart Button */}
             <button
               onClick={toggleFavorite}
               aria-label="Save to wishlist"
-              className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all text-gray-700 hover:text-red-500"
+              className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all border border-slate-700/60 text-gray-300 hover:text-red-500"
             >
               <Heart
                 className={`w-4 h-4 transition-colors ${
-                  isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'
+                  isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-300'
                 }`}
               />
             </button>
@@ -139,24 +139,24 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
 
         <CardContent className="p-5 flex flex-col justify-between flex-1">
           <div>
-            <div className="flex items-center justify-between text-xs text-muted-foreground mb-1.5">
+            <div className="flex items-center justify-between text-xs text-gray-400 mb-1.5">
               <div className="flex items-center">
-                <MapPin className="w-3.5 h-3.5 mr-1 text-primary" />
+                <MapPin className="w-3.5 h-3.5 mr-1 text-orange-400" />
                 <span className="font-medium">{apartment.location}</span>
               </div>
-              <div className="flex items-center text-emerald-600 font-medium text-[11px]">
+              <div className="flex items-center text-emerald-400 font-medium text-[11px]">
                 <ShieldCheck className="w-3.5 h-3.5 mr-1" /> Verified
               </div>
             </div>
 
-            <h3 className="text-base font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors line-clamp-1">
+            <h3 className="text-base font-bold mb-3 text-white group-hover:text-orange-400 transition-colors line-clamp-1">
               {apartment.name}
             </h3>
 
             {/* Specs Bar */}
-            <div className="grid grid-cols-3 gap-2 py-2 px-3 bg-gray-50 rounded-xl text-xs text-gray-600 mb-4 border border-gray-100">
+            <div className="grid grid-cols-3 gap-2 py-2 px-3 bg-slate-900/60 rounded-xl text-xs text-slate-300 mb-4 border border-slate-700/60">
               <div className="flex items-center gap-1.5 justify-center">
-                <Bed className="w-3.5 h-3.5 text-primary" />
+                <Bed className="w-3.5 h-3.5 text-orange-400" />
                 <span>{apartment.bedrooms} {apartment.bedrooms === 1 ? 'Bed' : 'Beds'}</span>
               </div>
               <div className="flex items-center gap-1.5 justify-center border-x border-gray-200 px-1">
