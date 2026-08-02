@@ -10,6 +10,7 @@ import { Calendar, MapPin, Users, Phone, Mail, CreditCard } from 'lucide-react';
 import { format } from 'date-fns';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { getImagePath } from '@/utils/imageUtils';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -106,14 +107,14 @@ const Dashboard = () => {
             ) : bookings && bookings.length > 0 ? (
               <div className="space-y-4">
                 {bookings.map((booking: any) => (
-                  <Card key={booking.id} className="border">
+                  <Card key={booking.id} className="border border-slate-700 bg-slate-800 text-white rounded-xl">
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex space-x-4 flex-1">
                           <img
-                            src={booking.apartments?.image_url || '/placeholder.svg'}
+                            src={getImagePath(booking.apartments?.image_url || 'images/apartments/apartment-1-800x600.jpg')}
                             alt={booking.apartments?.name}
-                            className="w-20 h-20 rounded-lg object-cover"
+                            className="w-20 h-20 rounded-lg object-cover border border-slate-700"
                           />
                           <div className="flex-1">
                             <h3 className="font-semibold text-lg mb-1">
