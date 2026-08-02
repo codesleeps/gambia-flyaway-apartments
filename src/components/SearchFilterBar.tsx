@@ -32,13 +32,13 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-4">
         {/* Search Input */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-500 z-10" />
           <Input
             type="text"
             placeholder="Search apartment name..."
             value={filters.searchQuery}
             onChange={(e) => onFilterChange({ searchQuery: e.target.value })}
-            className="pl-9 bg-slate-900/90 border-slate-700 text-white placeholder:text-gray-400 focus:bg-slate-900 text-sm font-medium focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+            className="pl-9 bg-white text-slate-900 placeholder:text-gray-500 font-bold border-2 border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 text-sm shadow-sm"
           />
         </div>
 
@@ -48,15 +48,15 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
             value={filters.location}
             onValueChange={(val) => onFilterChange({ location: val })}
           >
-            <SelectTrigger className="w-full bg-slate-900/90 border-slate-700 text-white text-sm font-medium focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+            <SelectTrigger className="w-full bg-white text-slate-900 font-bold border-2 border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 text-sm shadow-sm">
               <div className="flex items-center gap-2 truncate">
-                <MapPin className="w-4 h-4 text-orange-400 shrink-0" />
+                <MapPin className="w-4 h-4 text-orange-500 shrink-0" />
                 <SelectValue placeholder="Location" />
               </div>
             </SelectTrigger>
-            <SelectContent className="bg-slate-900 border-slate-700 text-white">
+            <SelectContent className="bg-white text-slate-900 border-2 border-slate-300 shadow-2xl z-50">
               {locations.map((loc) => (
-                <SelectItem key={loc} value={loc} className="hover:bg-slate-800 focus:bg-slate-800 text-white">
+                <SelectItem key={loc} value={loc} className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">
                   {loc}
                 </SelectItem>
               ))}
@@ -70,17 +70,17 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
             value={filters.priceRange}
             onValueChange={(val) => onFilterChange({ priceRange: val })}
           >
-            <SelectTrigger className="w-full bg-slate-900/90 border-slate-700 text-white text-sm font-medium focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+            <SelectTrigger className="w-full bg-white text-slate-900 font-bold border-2 border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 text-sm shadow-sm">
               <div className="flex items-center gap-2 truncate">
-                <DollarSign className="w-4 h-4 text-emerald-400 shrink-0" />
+                <DollarSign className="w-4 h-4 text-emerald-600 shrink-0" />
                 <SelectValue placeholder="Price Range" />
               </div>
             </SelectTrigger>
-            <SelectContent className="bg-slate-900 border-slate-700 text-white">
-              <SelectItem value="all" className="hover:bg-slate-800 focus:bg-slate-800 text-white">Any Price</SelectItem>
-              <SelectItem value="under-100" className="hover:bg-slate-800 focus:bg-slate-800 text-white">Under $100 / night</SelectItem>
-              <SelectItem value="100-200" className="hover:bg-slate-800 focus:bg-slate-800 text-white">$100 - $200 / night</SelectItem>
-              <SelectItem value="over-200" className="hover:bg-slate-800 focus:bg-slate-800 text-white">Over $200 / night</SelectItem>
+            <SelectContent className="bg-white text-slate-900 border-2 border-slate-300 shadow-2xl z-50">
+              <SelectItem value="all" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Any Price</SelectItem>
+              <SelectItem value="under-100" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Under $100 / night</SelectItem>
+              <SelectItem value="100-200" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">$100 - $200 / night</SelectItem>
+              <SelectItem value="over-200" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Over $200 / night</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -91,17 +91,17 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
             value={filters.bedrooms}
             onValueChange={(val) => onFilterChange({ bedrooms: val })}
           >
-            <SelectTrigger className="w-full bg-slate-900/90 border-slate-700 text-white text-sm font-medium focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+            <SelectTrigger className="w-full bg-white text-slate-900 font-bold border-2 border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 text-sm shadow-sm">
               <div className="flex items-center gap-2 truncate">
-                <Bed className="w-4 h-4 text-cyan-400 shrink-0" />
+                <Bed className="w-4 h-4 text-blue-600 shrink-0" />
                 <SelectValue placeholder="Bedrooms" />
               </div>
             </SelectTrigger>
-            <SelectContent className="bg-slate-900 border-slate-700 text-white">
-              <SelectItem value="all" className="hover:bg-slate-800 focus:bg-slate-800 text-white">Any Bedrooms</SelectItem>
-              <SelectItem value="1" className="hover:bg-slate-800 focus:bg-slate-800 text-white">1+ Bedroom</SelectItem>
-              <SelectItem value="2" className="hover:bg-slate-800 focus:bg-slate-800 text-white">2+ Bedrooms</SelectItem>
-              <SelectItem value="3" className="hover:bg-slate-800 focus:bg-slate-800 text-white">3+ Bedrooms</SelectItem>
+            <SelectContent className="bg-white text-slate-900 border-2 border-slate-300 shadow-2xl z-50">
+              <SelectItem value="all" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Any Bedrooms</SelectItem>
+              <SelectItem value="1" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">1+ Bedroom</SelectItem>
+              <SelectItem value="2" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">2+ Bedrooms</SelectItem>
+              <SelectItem value="3" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">3+ Bedrooms</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -112,17 +112,17 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
             value={filters.sortBy}
             onValueChange={(val) => onFilterChange({ sortBy: val })}
           >
-            <SelectTrigger className="w-full bg-slate-900/90 border-slate-700 text-white text-sm font-medium focus:border-orange-500 focus:ring-1 focus:ring-orange-500">
+            <SelectTrigger className="w-full bg-white text-slate-900 font-bold border-2 border-slate-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 text-sm shadow-sm">
               <div className="flex items-center gap-2 truncate">
-                <SlidersHorizontal className="w-4 h-4 text-amber-400 shrink-0" />
+                <SlidersHorizontal className="w-4 h-4 text-purple-600 shrink-0" />
                 <SelectValue placeholder="Sort By" />
               </div>
             </SelectTrigger>
-            <SelectContent className="bg-slate-900 border-slate-700 text-white">
-              <SelectItem value="recommended" className="hover:bg-slate-800 focus:bg-slate-800 text-white">Recommended</SelectItem>
-              <SelectItem value="price-asc" className="hover:bg-slate-800 focus:bg-slate-800 text-white">Price: Low to High</SelectItem>
-              <SelectItem value="price-desc" className="hover:bg-slate-800 focus:bg-slate-800 text-white">Price: High to Low</SelectItem>
-              <SelectItem value="rating-desc" className="hover:bg-slate-800 focus:bg-slate-800 text-white">Highest Rated</SelectItem>
+            <SelectContent className="bg-white text-slate-900 border-2 border-slate-300 shadow-2xl z-50">
+              <SelectItem value="recommended" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Recommended</SelectItem>
+              <SelectItem value="price-asc" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Price: Low to High</SelectItem>
+              <SelectItem value="price-desc" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Price: High to Low</SelectItem>
+              <SelectItem value="rating-desc" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Highest Rated</SelectItem>
             </SelectContent>
           </Select>
         </div>
