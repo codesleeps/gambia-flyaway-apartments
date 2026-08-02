@@ -309,7 +309,13 @@ const Index = () => {
                       src={getImagePath(item.image)}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      onError={(e) => handleImageError(e, '/images/apartments/apartment-1-800x600.jpg')}
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (!target.dataset.triedRoot) {
+                          target.dataset.triedRoot = 'true';
+                          target.src = `/${item.image}`;
+                        }
+                      }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10" />
                     
