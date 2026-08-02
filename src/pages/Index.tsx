@@ -31,7 +31,7 @@ const attractionsData: Attraction[] = [
     id: "beaches",
     title: "Pristine Atlantic Beaches",
     category: "Coastline",
-    image: "images/attractions/beach_attraction_1785676012086.png",
+    image: "images/attractions/beach.png",
     fallbackGradient: "from-blue-600 via-cyan-600 to-teal-500",
     description: "Miles of golden sandy beaches along the Atlantic coast, perfect for swimming, sunbathing, and sunset cocktails.",
     highlights: ["Kotu Beach & Sun loungers", "Bijilo Golden Coast", "Senegambia Sunset Strip"],
@@ -41,7 +41,7 @@ const attractionsData: Attraction[] = [
     id: "parks",
     title: "Lush Natural Reserves",
     category: "Wildlife",
-    image: "images/attractions/park_attraction_1785676039082.png",
+    image: "images/attractions/park.png",
     fallbackGradient: "from-emerald-700 via-green-600 to-teal-600",
     description: "Explore lush tropical rainforest sanctuaries teeming with exotic monkeys, colorful kingfishers, and over 560 bird species.",
     highlights: ["Bijilo Monkey Forest Park", "Abuko Nature Reserve", "River Gambia Safari"],
@@ -51,7 +51,7 @@ const attractionsData: Attraction[] = [
     id: "cuisine",
     title: "Authentic Local Cuisine",
     category: "Gastronomy",
-    image: "images/attractions/cuisine_attraction_1785676057685.png",
+    image: "images/attractions/cuisine.png",
     fallbackGradient: "from-amber-600 via-orange-600 to-red-600",
     description: "Savor authentic Gambian culinary delights, from savory Domoda peanut stew to fresh wild Atlantic snapper and tiger prawns.",
     highlights: ["Domoda Peanut Stew", "Fresh Atlantic Seafood", "Albert Market Spice Stalls"],
@@ -61,7 +61,7 @@ const attractionsData: Attraction[] = [
     id: "culture",
     title: "Vibrant Cultural Scenery",
     category: "Heritage",
-    image: "images/attractions/culture_attraction_1785676069923.png",
+    image: "images/attractions/culture.png",
     fallbackGradient: "from-purple-700 via-indigo-700 to-slate-800",
     description: "Immerse yourself in authentic Gambian heritage, kora string music, hand-carved wooden sculptures, and warm village hospitality.",
     highlights: ["Serrekunda Craft Market", "Traditional Kora Music", "Historical Juffureh Village"],
@@ -311,9 +311,16 @@ const Index = () => {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       onError={(e) => {
                         const target = e.currentTarget;
-                        if (!target.dataset.triedRoot) {
-                          target.dataset.triedRoot = 'true';
+                        const step = parseInt(target.dataset.errorStep || '0');
+                        if (step === 0) {
+                          target.dataset.errorStep = '1';
                           target.src = `/${item.image}`;
+                        } else if (step === 1) {
+                          target.dataset.errorStep = '2';
+                          target.src = `images/attractions/${item.id}.png`;
+                        } else if (step === 2) {
+                          target.dataset.errorStep = '3';
+                          target.src = `https://raw.githubusercontent.com/codesleeps/gambia-flyaway-apartments/main/public/${item.image}`;
                         }
                       }}
                     />
