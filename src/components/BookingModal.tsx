@@ -19,6 +19,8 @@ interface Apartment {
   location: string;
   price: number;
   max_guests: number;
+  image_url?: string;
+  images?: string[];
 }
 
 interface BookingModalProps {
@@ -27,6 +29,8 @@ interface BookingModalProps {
   onClose: () => void;
 }
 
+const viewLabels = ['Lounge', 'Bedroom', 'Bathroom', 'Kitchen', 'Balcony'];
+
 const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose }) => {
   const { user } = useAuth();
   const [checkInDate, setCheckInDate] = useState<Date>();
@@ -34,6 +38,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
   const [guests, setGuests] = useState(1);
   const [specialRequests, setSpecialRequests] = useState('');
   const [isBooking, setIsBooking] = useState(false);
+  const [selectedPhotoIdx, setSelectedPhotoIdx] = useState(0);
 
   const cleaningFee = 25;
   const serviceFee = 15;
@@ -117,10 +122,13 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
   if (!apartment) return null;
 
   const nights = getNights();
+  const gallery = apartment.images && apartment.images.length > 0
+    ? apartment.images
+    : [apartment.image_url || `/images/apartments/harmony-apt-${apartment.id || '1'}.jpg`];
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[540px] p-6 rounded-2xl bg-white border border-gray-100 shadow-2xl">
+      <DialogContent className="sm:max-w-[580px] p-6 rounded-2xl bg-white border border-gray-100 shadow-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader className="pb-3 border-b border-gray-100">
           <div className="flex items-center gap-2 text-xs font-semibold text-primary mb-1">
             <Sparkles className="w-3.5 h-3.5" /> Direct Reservation
@@ -133,6 +141,42 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
             <MapPin className="w-3.5 h-3.5 text-primary inline" /> {apartment.location}
           </DialogDescription>
         </DialogHeader>
+
+        {/* Room View Gallery Carousel in Modal */}
+        <div className="my-2 space-y-2">
+          <div className="relative h-48 rounded-xl overflow-hidden bg-slate-900 shadow-inner">
+            <img
+              src={gallery[selectedPhotoIdx] || gallery[0]}
+              alt={`${apartment.name} ${viewLabels[selectedPhotoIdx] || ''}`}
+              className="w-full h-full object-cover transition-all duration-300"
+            />
+            <div className="absolute top-2 left-2 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-full text-white text-[11px] font-semibold border border-white/20">
+              {viewLabels[selectedPhotoIdx] || `View ${selectedPhotoIdx + 1}`}
+            </div>
+          </div>
+
+          {gallery.length > 1 && (
+            <div className="grid grid-cols-5 gap-1.5">
+              {gallery.map((imgSrc, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setSelectedPhotoIdx(idx)}
+                  className={`relative h-14 rounded-lg overflow-hidden border-2 transition-all ${
+                    selectedPhotoIdx === idx
+                      ? 'border-orange-500 ring-2 ring-orange-400 scale-105'
+                      : 'border-transparent opacity-70 hover:opacity-100'
+                  }`}
+                >
+                  <img src={imgSrc} alt={viewLabels[idx] || `View ${idx}`} className="w-full h-full object-cover" />
+                  <span className="absolute bottom-0 inset-x-0 bg-black/60 text-[9px] text-white text-center py-0.5 font-medium truncate px-0.5">
+                    {viewLabels[idx] || `View ${idx+1}`}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
         <div className="space-y-4 py-3 text-sm">
           {/* Quick Preset Buttons */}

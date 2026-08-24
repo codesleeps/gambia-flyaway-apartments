@@ -17,6 +17,7 @@ interface Apartment {
   rating: number;
   reviews: number;
   image_url: string;
+  images?: string[];
   amenities: string[];
   bedrooms: number;
   bathrooms: number;
@@ -27,11 +28,16 @@ interface ApartmentCardProps {
   apartment: Apartment;
 }
 
+const viewLabels = ['Lounge', 'Bedroom', 'Bathroom', 'Kitchen', 'Balcony'];
+
 const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
+
+  const gallery = apartment.images && apartment.images.length > 0 ? apartment.images : [apartment.image_url];
 
   // Check if apartment is in local favorites
   useEffect(() => {
@@ -57,23 +63,14 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
       }
       localStorage.setItem('gambia_favs', JSON.stringify(updatedFavs));
       setIsFavorite(!isFavorite);
-    } catch (err) {
-      console.error(err);
+    } catch (e) {
+      console.error(e);
     }
   };
 
-  // Map apartment ID to specific high-res image or fallback to apartment.image_url
   const getApartmentSrc = () => {
-    const map: Record<string, string> = {
-      '1': 'images/apartments/apartment-1-800x600.jpg',
-      '2': 'images/apartments/apt2-800x600.jpg',
-      '3': 'images/apartments/apartment-3-800x600.jpg',
-      '4': 'images/apartments/apartment-4-800x600.jpg',
-      '5': 'images/apartments/apt5_800x600.jpg',
-      '6': 'images/apartments/apt6-800x600.jpg',
-    };
-    const targetPath = map[apartment.id] || apartment.image_url || 'images/apartments/apartment-1-800x600.jpg';
-    return getImagePath(targetPath);
+    const rawPath = gallery[activeImgIndex] || apartment.image_url || '/images/apartments/apartment-1-800x600.jpg';
+    return getImagePath(rawPath);
   };
 
   const getAmenityIcon = (amenity: string) => {
@@ -89,8 +86,12 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
 
   const handleBookNow = () => {
     if (!user) {
-      toast.info('Please log in to make a booking reservation');
-      navigate('/auth');
+      toast.info('Please sign in to proceed with your booking', {
+        action: {
+          label: 'Sign In',
+          onClick: () => navigate('/auth'),
+        },
+      });
       return;
     }
     setIsBookingModalOpen(true);
@@ -100,12 +101,12 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
     <>
       <Card className="card-hover border border-slate-700/60 overflow-hidden group bg-slate-800/90 text-white shadow-xl hover:shadow-2xl rounded-2xl flex flex-col justify-between h-full">
         <CardHeader className="p-0 relative">
-          <div className="relative h-56 bg-slate-900 overflow-hidden">
+          <div className="relative h-60 bg-slate-900 overflow-hidden">
             <img
               src={getApartmentSrc()}
-              alt={`${apartment.name} in ${apartment.location}`}
+              alt={`${apartment.name} ${viewLabels[activeImgIndex] || ''}`}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-              onError={(e) => handleImageError(e, '/images/apartments/apartment-1-800x600.jpg')}
+              onError={(e) => handleImageError(e, '/images/apartments/harmony-apt-1.jpg')}
             />
 
             {/* Price Tag Overlay */}
@@ -115,18 +116,22 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
               </Badge>
             </div>
 
-            {/* Rating Overlay */}
-            <div className="absolute top-3 left-3 flex items-center space-x-1 bg-slate-950/80 backdrop-blur-md rounded-full px-2.5 py-1 shadow-md border border-slate-700/60">
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-              <span className="text-xs font-semibold text-white">{apartment.rating}</span>
-              <span className="text-[10px] text-gray-300">({apartment.reviews})</span>
+            {/* View Area Badge & Rating Overlay */}
+            <div className="absolute top-3 left-3 flex items-center space-x-2">
+              <Badge className="bg-orange-600/90 backdrop-blur-md text-white border-0 text-[11px] px-2.5 py-0.5 font-semibold shadow-md">
+                {viewLabels[activeImgIndex] || 'Photo'}
+              </Badge>
+              <div className="flex items-center space-x-1 bg-slate-950/80 backdrop-blur-md rounded-full px-2.5 py-1 shadow-md border border-slate-700/60">
+                <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                <span className="text-xs font-semibold text-white">{apartment.rating}</span>
+              </div>
             </div>
 
             {/* Favorite Heart Button */}
             <button
               onClick={toggleFavorite}
               aria-label="Save to wishlist"
-              className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all border border-slate-700/60 text-gray-300 hover:text-red-500"
+              className="absolute top-12 right-3 w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all border border-slate-700/60 text-gray-300 hover:text-red-500 z-10"
             >
               <Heart
                 className={`w-4 h-4 transition-colors ${
@@ -134,6 +139,29 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
                 }`}
               />
             </button>
+
+            {/* Room View Gallery Switcher Tabs */}
+            {gallery.length > 1 && (
+              <div className="absolute bottom-2 left-2 right-2 flex justify-center gap-1 bg-slate-950/75 backdrop-blur-md py-1 px-2 rounded-xl border border-slate-700/50">
+                {gallery.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveImgIndex(idx);
+                    }}
+                    className={`px-2 py-0.5 text-[10px] font-semibold rounded-md transition-all ${
+                      activeImgIndex === idx
+                        ? 'bg-orange-500 text-white shadow'
+                        : 'bg-slate-800/80 text-gray-300 hover:bg-slate-700'
+                    }`}
+                  >
+                    {viewLabels[idx] || `View ${idx + 1}`}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </CardHeader>
 

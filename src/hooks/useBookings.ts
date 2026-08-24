@@ -14,9 +14,9 @@ const mockBookings = [
     status: 'confirmed',
     special_requests: 'Airport transfer requested for 3 PM arrival.',
     apartments: {
-      name: 'Ocean View Luxury Apartment',
-      location: 'Serrekunda, The Gambia',
-      image_url: 'images/apartments/apartment-1-800x600.jpg',
+      name: 'Harmony Apartment 1',
+      location: 'Kerr Serign, The Gambia',
+      image_url: 'images/apartments/harmony-apt-1.jpg',
       price: 25
     }
   }
