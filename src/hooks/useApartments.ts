@@ -12,11 +12,10 @@ const mockApartments = [
     reviews: 124,
     image_url: '/images/apartments/harmony-apt-1-lounge.jpg',
     images: [
-      '/images/apartments/harmony-apt-1-lounge.jpg',
-      '/images/apartments/harmony-apt-1-bedroom.jpg',
-      '/images/apartments/harmony-apt-1-bedroom1.jpg',
-      '/images/apartments/harmony-apt-1-bedroom-a.jpg',
-      '/images/apartments/harmony-apt-1-kitchen.jpg'
+      { src: '/images/apartments/harmony-apt-1-lounge.jpg', label: 'Lounge' },
+      { src: '/images/apartments/harmony-apt-1-bedroom.jpg', label: 'Bedroom' },
+      { src: '/images/apartments/harmony-apt-1-kitchen.jpg', label: 'Kitchen' },
+      { src: '/images/apartments/harmony-apt-2-bathroom.jpg', label: 'Bathroom' }
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Kitchenette', 'Garden View'],
     bedrooms: 2,
@@ -33,11 +32,10 @@ const mockApartments = [
     reviews: 89,
     image_url: '/images/apartments/harmony-apt-2-lounge.jpg',
     images: [
-      '/images/apartments/harmony-apt-2-lounge.jpg',
-      '/images/apartments/harmony-apt-2-bedroom.jpg',
-      '/images/apartments/harmony-apt-2-bedrrom-b.jpg',
-      '/images/apartments/harmony-apt-2-bathroom.jpg',
-      '/images/apartments/harmony-apt-2-bathrooma.jpg'
+      { src: '/images/apartments/harmony-apt-2-lounge.jpg', label: 'Lounge' },
+      { src: '/images/apartments/harmony-apt-2-bedroom.jpg', label: 'Bedroom' },
+      { src: '/images/apartments/harmony-apt-2-bedrrom-b.jpg', label: 'Kitchen' },
+      { src: '/images/apartments/harmony-apt-2-bathroom.jpg', label: 'Bathroom' }
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Patio', 'Free Parking'],
     bedrooms: 2,
@@ -54,11 +52,10 @@ const mockApartments = [
     reviews: 67,
     image_url: '/images/apartments/harmony-apt-3-lounge.jpg',
     images: [
-      '/images/apartments/harmony-apt-3-lounge.jpg',
-      '/images/apartments/harmony-apt-3-lounge-a.jpg',
-      '/images/apartments/harmony-apt-3-lounge-b.jpg',
-      '/images/apartments/harmony-apt-3-kitchen.jpg',
-      '/images/apartments/harmony-apt-3-kitchena.jpg'
+      { src: '/images/apartments/harmony-apt-3-lounge.jpg', label: 'Lounge' },
+      { src: '/images/apartments/harmony-apt-3-lounge-b.jpg', label: 'Bedroom' },
+      { src: '/images/apartments/harmony-apt-3-kitchen.jpg', label: 'Kitchen' },
+      { src: '/images/apartments/harmony-apt-3-kitchena.jpg', label: 'Bathroom' }
     ],
     amenities: ['Wifi', 'Kitchen', 'Balcony', 'TV'],
     bedrooms: 1,
@@ -68,18 +65,17 @@ const mockApartments = [
   },
   {
     id: '5',
-    name: 'Harmony Apartment 5 (Suite)',
+    name: 'Harmony Apartment 5',
     location: 'Kerr Serign, The Gambia',
     price: 25,
     rating: 4.9,
     reviews: 43,
     image_url: '/images/apartments/harmony-apt-5-lounge.jpg',
     images: [
-      '/images/apartments/harmony-apt-5-lounge.jpg',
-      '/images/apartments/harmony-apt-5-bedroom.jpg',
-      '/images/apartments/harmony-apt-5-bedroom-a.jpg',
-      '/images/apartments/harmony-apt-5-kitchen.jpg',
-      '/images/apartments/harmony-apt-5-kitchen-a.jpg'
+      { src: '/images/apartments/harmony-apt-5-lounge.jpg', label: 'Lounge' },
+      { src: '/images/apartments/harmony-apt-5-bedroom.jpg', label: 'Bedroom' },
+      { src: '/images/apartments/harmony-apt-5-kitchen.jpg', label: 'Kitchen' },
+      { src: '/images/apartments/harmony-apt-5-kitchen-a.jpg', label: 'Bathroom' }
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Kitchen', 'Garden View'],
     bedrooms: 2,
@@ -89,18 +85,17 @@ const mockApartments = [
   },
   {
     id: '6',
-    name: 'Harmony Apartment 6 (Penthouse)',
+    name: 'Harmony Apartment 6',
     location: 'Kerr Serign, The Gambia',
     price: 30,
     rating: 5.0,
     reviews: 92,
     image_url: '/images/apartments/harmony-apt-6-lounge.jpg',
     images: [
-      '/images/apartments/harmony-apt-6-lounge.jpg',
-      '/images/apartments/harmony-apt-6-lounge-a.jpg',
-      '/images/apartments/harmony-apt-6-lounge-6a.jpg',
-      '/images/apartments/harmony-apt-6-bedroom-a.jpg',
-      '/images/apartments/harmony-apt-6-kitchen.jpg'
+      { src: '/images/apartments/harmony-apt-6-lounge.jpg', label: 'Lounge' },
+      { src: '/images/apartments/harmony-apt-6-bedroom-a.jpg', label: 'Bedroom' },
+      { src: '/images/apartments/harmony-apt-6-kitchen.jpg', label: 'Kitchen' },
+      { src: '/images/apartments/harmony-apt-6-lounge-a.jpg', label: 'Bathroom' }
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Terrace', 'Luxury Lounge'],
     bedrooms: 2,

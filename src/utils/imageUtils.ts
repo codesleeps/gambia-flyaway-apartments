@@ -81,43 +81,30 @@ export const parseImage = (item: ApartmentImageItem, index: number): { src: stri
 };
 
 /**
- * Normalizes an array of gallery images and automatically numbers duplicated labels (e.g., Bedroom 1, Bedroom 2)
+ * Normalizes an array of gallery images and ensures tab labels are strictly unique (e.g., one Lounge, one Bedroom, one Kitchen, one Bathroom)
  */
 export const parseGallery = (items: ApartmentImageItem[]): { src: string; label: string }[] => {
   if (!items || items.length === 0) return [];
 
-  const rawResolved = items.map((item, idx) => {
+  const seenLabels = new Set<string>();
+  const uniqueList: { src: string; label: string }[] = [];
+
+  items.forEach((item, idx) => {
+    let src = '';
+    let label = '';
     if (typeof item === 'object' && item !== null) {
-      return {
-        src: getImagePath(item.src),
-        label: item.label,
-        isCustom: true,
-      };
+      src = getImagePath(item.src);
+      label = item.label || getImageLabel(item.src, idx);
+    } else {
+      src = getImagePath(item || '');
+      label = getImageLabel(item || '', idx);
     }
-    return {
-      src: getImagePath(item || ''),
-      label: getImageLabel(item || '', idx),
-      isCustom: false,
-    };
+
+    if (!seenLabels.has(label)) {
+      seenLabels.add(label);
+      uniqueList.push({ src, label });
+    }
   });
 
-  const labelCounts: Record<string, number> = {};
-  rawResolved.forEach((item) => {
-    labelCounts[item.label] = (labelCounts[item.label] || 0) + 1;
-  });
-
-  const labelIndices: Record<string, number> = {};
-  return rawResolved.map((item) => {
-    if (item.isCustom) {
-      return { src: item.src, label: item.label };
-    }
-    if (labelCounts[item.label] > 1) {
-      labelIndices[item.label] = (labelIndices[item.label] || 0) + 1;
-      return {
-        src: item.src,
-        label: `${item.label} ${labelIndices[item.label]}`,
-      };
-    }
-    return { src: item.src, label: item.label };
-  });
+  return uniqueList;
 };
