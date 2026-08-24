@@ -248,7 +248,7 @@ const Contact = () => {
                       <div>
                         <h3 className="text-lg font-semibold mb-2">Phone Number</h3>
                         <p className="text-gray-600">
-                          +220 123 4567<br />
+                          +220 799 3244<br />
                           Available 24/7 for urgent inquiries
                         </p>
                       </div>
@@ -265,7 +265,7 @@ const Contact = () => {
                       <div>
                         <h3 className="text-lg font-semibold mb-2">Email Address</h3>
                         <p className="text-gray-600">
-                          info@gambiastay.com<br />
+                          gambiaharmony@gmail.com<br />
                           We respond within 24 hours
                         </p>
                       </div>

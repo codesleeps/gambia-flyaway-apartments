@@ -135,7 +135,7 @@ const Dashboard = () => {
                               </div>
                               <div className="flex items-center">
                                 <CreditCard className="w-4 h-4 mr-1" />
-                                ${booking.total_price}
+                                £{booking.total_price}
                               </div>
                             </div>
                           </div>

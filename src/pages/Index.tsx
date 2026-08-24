@@ -121,9 +121,8 @@ const Index = () => {
         }
 
         // Price range filter
-        if (filters.priceRange === "under-100" && apt.price >= 100) return false;
-        if (filters.priceRange === "100-200" && (apt.price < 100 || apt.price > 200)) return false;
-        if (filters.priceRange === "over-200" && apt.price <= 200) return false;
+        if (filters.priceRange === "25" && apt.price !== 25) return false;
+        if (filters.priceRange === "30" && apt.price !== 30) return false;
 
         return true;
       })

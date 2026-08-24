@@ -111,7 +111,7 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
             {/* Price Tag Overlay */}
             <div className="absolute top-3 right-3">
               <Badge className="bg-slate-950/80 backdrop-blur-md text-white border-0 text-xs px-3 py-1 font-bold shadow-lg">
-                ${apartment.price} <span className="font-normal text-[10px] text-gray-300 ml-0.5">/ night</span>
+                £{apartment.price} <span className="font-normal text-[10px] text-gray-300 ml-0.5">/ night</span>
               </Badge>
             </div>
 

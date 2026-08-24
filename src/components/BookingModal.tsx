@@ -127,7 +127,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
           </div>
           <DialogTitle className="text-xl font-bold text-gray-900 flex items-center justify-between">
             <span>{apartment.name}</span>
-            <span className="text-primary text-lg">${apartment.price}<span className="text-xs text-muted-foreground font-normal">/night</span></span>
+            <span className="text-primary text-lg">£{apartment.price}<span className="text-xs text-muted-foreground font-normal">/night</span></span>
           </DialogTitle>
           <DialogDescription className="text-xs text-muted-foreground flex items-center gap-1">
             <MapPin className="w-3.5 h-3.5 text-primary inline" /> {apartment.location}
@@ -249,20 +249,20 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
           {nights > 0 && (
             <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 text-xs space-y-2">
               <div className="flex justify-between text-gray-600">
-                <span>${apartment.price} × {nights} {nights === 1 ? 'night' : 'nights'}</span>
-                <span className="font-semibold text-gray-900">${calculateSubtotal()}</span>
+                <span>£{apartment.price} × {nights} {nights === 1 ? 'night' : 'nights'}</span>
+                <span className="font-semibold text-gray-900">£{calculateSubtotal()}</span>
               </div>
               <div className="flex justify-between text-gray-600">
                 <span>Cleaning & Sanitization fee</span>
-                <span>${cleaningFee}</span>
+                <span>£{cleaningFee}</span>
               </div>
               <div className="flex justify-between text-gray-600">
                 <span>Resort & Service fee</span>
-                <span>${serviceFee}</span>
+                <span>£{serviceFee}</span>
               </div>
               <div className="pt-2 border-t border-slate-200 flex justify-between items-center font-bold text-sm text-gray-900">
                 <span>Total Due:</span>
-                <span className="text-primary text-lg">${calculateTotalPrice()}</span>
+                <span className="text-primary text-lg">£{calculateTotalPrice()}</span>
               </div>
             </div>
           )}

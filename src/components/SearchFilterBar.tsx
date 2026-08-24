@@ -78,9 +78,8 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
             </SelectTrigger>
             <SelectContent className="bg-white text-slate-900 border-2 border-slate-300 shadow-2xl z-50">
               <SelectItem value="all" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Any Price</SelectItem>
-              <SelectItem value="under-100" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Under $100 / night</SelectItem>
-              <SelectItem value="100-200" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">$100 - $200 / night</SelectItem>
-              <SelectItem value="over-200" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">Over $200 / night</SelectItem>
+              <SelectItem value="25" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">£25 / night</SelectItem>
+              <SelectItem value="30" className="hover:bg-orange-50 focus:bg-orange-50 text-slate-900 font-semibold cursor-pointer">£30 / night</SelectItem>
             </SelectContent>
           </Select>
         </div>

@@ -10,14 +10,14 @@ const mockBookings = [
     check_in_date: new Date(Date.now() + 5 * 86400000).toISOString(),
     check_out_date: new Date(Date.now() + 12 * 86400000).toISOString(),
     guests: 2,
-    total_price: 1050,
+    total_price: 215,
     status: 'confirmed',
     special_requests: 'Airport transfer requested for 3 PM arrival.',
     apartments: {
       name: 'Ocean View Luxury Apartment',
       location: 'Serrekunda, The Gambia',
       image_url: 'images/apartments/apartment-1-800x600.jpg',
-      price: 150
+      price: 25
     }
   }
 ];
