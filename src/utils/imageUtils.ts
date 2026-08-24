@@ -79,3 +79,45 @@ export const parseImage = (item: ApartmentImageItem, index: number): { src: stri
     label: getImageLabel(item || '', index),
   };
 };
+
+/**
+ * Normalizes an array of gallery images and automatically numbers duplicated labels (e.g., Bedroom 1, Bedroom 2)
+ */
+export const parseGallery = (items: ApartmentImageItem[]): { src: string; label: string }[] => {
+  if (!items || items.length === 0) return [];
+
+  const rawResolved = items.map((item, idx) => {
+    if (typeof item === 'object' && item !== null) {
+      return {
+        src: getImagePath(item.src),
+        label: item.label,
+        isCustom: true,
+      };
+    }
+    return {
+      src: getImagePath(item || ''),
+      label: getImageLabel(item || '', idx),
+      isCustom: false,
+    };
+  });
+
+  const labelCounts: Record<string, number> = {};
+  rawResolved.forEach((item) => {
+    labelCounts[item.label] = (labelCounts[item.label] || 0) + 1;
+  });
+
+  const labelIndices: Record<string, number> = {};
+  return rawResolved.map((item) => {
+    if (item.isCustom) {
+      return { src: item.src, label: item.label };
+    }
+    if (labelCounts[item.label] > 1) {
+      labelIndices[item.label] = (labelIndices[item.label] || 0) + 1;
+      return {
+        src: item.src,
+        label: `${item.label} ${labelIndices[item.label]}`,
+      };
+    }
+    return { src: item.src, label: item.label };
+  });
+};

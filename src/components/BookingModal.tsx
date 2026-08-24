@@ -13,7 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 
-import { parseImage, ApartmentImageItem } from "@/utils/imageUtils";
+import { parseGallery, parseImage, ApartmentImageItem } from "@/utils/imageUtils";
 
 interface Apartment {
   id: string;
@@ -125,7 +125,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
   const rawModalGallery = apartment.images && apartment.images.length > 0
     ? apartment.images
     : [apartment.image_url || `/images/apartments/harmony-apt-${apartment.id || '1'}.jpg`];
-  const parsedModalGallery = rawModalGallery.map((item, idx) => parseImage(item, idx));
+  const parsedModalGallery = parseGallery(rawModalGallery);
   const activeModalImage = parsedModalGallery[selectedPhotoIdx] || parsedModalGallery[0];
 
   return (

@@ -7,7 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import BookingModal from './BookingModal';
 import { toast } from 'sonner';
-import { getImagePath, handleImageError, parseImage, ApartmentImageItem } from '@/utils/imageUtils';
+import { getImagePath, handleImageError, parseGallery, parseImage, ApartmentImageItem } from '@/utils/imageUtils';
 
 interface Apartment {
   id: string;
@@ -36,7 +36,7 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
   const [activeImgIndex, setActiveImgIndex] = useState(0);
 
   const rawGallery = apartment.images && apartment.images.length > 0 ? apartment.images : [apartment.image_url];
-  const parsedGallery = rawGallery.map((item, idx) => parseImage(item, idx));
+  const parsedGallery = parseGallery(rawGallery);
   const activeImage = parsedGallery[activeImgIndex] || parseImage(apartment.image_url, 0);
 
   // Check if apartment is in local favorites
