@@ -69,7 +69,7 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
   };
 
   const getApartmentSrc = () => {
-    const rawPath = gallery[activeImgIndex] || apartment.image_url || '/images/apartments/apartment-1-800x600.jpg';
+    const rawPath = parsedGallery[activeImgIndex] || apartment.image_url || '/images/apartments/apartment-1-800x600.jpg';
     return getImagePath(rawPath);
   };
 

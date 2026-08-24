@@ -14,6 +14,7 @@ const mockApartments = [
     images: [
       '/images/apartments/harmony-apt-1-lounge.jpg',
       '/images/apartments/harmony-apt-1-bedroom.jpg',
+      { src: '/images/apartments/harmony-apt-1-bedroom-a.jpg', label: 'Bathroom' },
       '/images/apartments/harmony-apt-1-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Kitchenette', 'Garden View'],
@@ -33,7 +34,8 @@ const mockApartments = [
     images: [
       '/images/apartments/harmony-apt-2-lounge.jpg',
       '/images/apartments/harmony-apt-2-bedroom.jpg',
-      '/images/apartments/harmony-apt-2-bathroom.jpg'
+      '/images/apartments/harmony-apt-2-bathroom.jpg',
+      { src: '/images/apartments/harmony-apt-2-bedrrom-b.jpg', label: 'Kitchen' }
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Patio', 'Free Parking'],
     bedrooms: 2,
@@ -51,6 +53,8 @@ const mockApartments = [
     image_url: '/images/apartments/harmony-apt-3-lounge.jpg',
     images: [
       '/images/apartments/harmony-apt-3-lounge.jpg',
+      { src: '/images/apartments/harmony-apt-3-lounge-a.jpg', label: 'Bedroom' },
+      { src: '/images/apartments/harmony-apt-3-lounge-b.jpg', label: 'Bathroom' },
       '/images/apartments/harmony-apt-3-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Kitchen', 'Balcony', 'TV'],
@@ -70,6 +74,7 @@ const mockApartments = [
     images: [
       '/images/apartments/harmony-apt-5-lounge.jpg',
       '/images/apartments/harmony-apt-5-bedroom.jpg',
+      { src: '/images/apartments/harmony-apt-5-bedroom-a.jpg', label: 'Bathroom' },
       '/images/apartments/harmony-apt-5-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Kitchen', 'Garden View'],
@@ -89,6 +94,7 @@ const mockApartments = [
     images: [
       '/images/apartments/harmony-apt-6-lounge.jpg',
       '/images/apartments/harmony-apt-6-bedroom-a.jpg',
+      { src: '/images/apartments/harmony-apt-6-lounge-a.jpg', label: 'Bathroom' },
       '/images/apartments/harmony-apt-6-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Terrace', 'Luxury Lounge'],
