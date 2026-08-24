@@ -7,7 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import BookingModal from './BookingModal';
 import { toast } from 'sonner';
-import { getImagePath, handleImageError } from '@/utils/imageUtils';
+import { getImagePath, handleImageError, parseImage, ApartmentImageItem } from '@/utils/imageUtils';
 
 interface Apartment {
   id: string;
@@ -17,7 +17,7 @@ interface Apartment {
   rating: number;
   reviews: number;
   image_url: string;
-  images?: string[];
+  images?: ApartmentImageItem[];
   amenities: string[];
   bedrooms: number;
   bathrooms: number;
@@ -28,8 +28,6 @@ interface ApartmentCardProps {
   apartment: Apartment;
 }
 
-const viewLabels = ['Lounge', 'Bedroom', 'Bathroom', 'Kitchen', 'Balcony'];
-
 const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -37,7 +35,9 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [activeImgIndex, setActiveImgIndex] = useState(0);
 
-  const gallery = apartment.images && apartment.images.length > 0 ? apartment.images : [apartment.image_url];
+  const rawGallery = apartment.images && apartment.images.length > 0 ? apartment.images : [apartment.image_url];
+  const parsedGallery = rawGallery.map((item, idx) => parseImage(item, idx));
+  const activeImage = parsedGallery[activeImgIndex] || parseImage(apartment.image_url, 0);
 
   // Check if apartment is in local favorites
   useEffect(() => {
@@ -103,8 +103,8 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
         <CardHeader className="p-0 relative">
           <div className="relative h-60 bg-slate-900 overflow-hidden">
             <img
-              src={getApartmentSrc()}
-              alt={`${apartment.name} ${viewLabels[activeImgIndex] || ''}`}
+              src={activeImage.src}
+              alt={`${apartment.name} ${activeImage.label}`}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               onError={(e) => handleImageError(e, '/images/apartments/harmony-apt-1.jpg')}
             />
@@ -119,7 +119,7 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
             {/* View Area Badge & Rating Overlay */}
             <div className="absolute top-3 left-3 flex items-center space-x-2">
               <Badge className="bg-orange-600/90 backdrop-blur-md text-white border-0 text-[11px] px-2.5 py-0.5 font-semibold shadow-md">
-                {viewLabels[activeImgIndex] || 'Photo'}
+                {activeImage.label}
               </Badge>
               <div className="flex items-center space-x-1 bg-slate-950/80 backdrop-blur-md rounded-full px-2.5 py-1 shadow-md border border-slate-700/60">
                 <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
@@ -141,9 +141,9 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
             </button>
 
             {/* Room View Gallery Switcher Tabs */}
-            {gallery.length > 1 && (
+            {parsedGallery.length > 1 && (
               <div className="absolute bottom-2 left-2 right-2 flex justify-center gap-1 bg-slate-950/75 backdrop-blur-md py-1 px-2 rounded-xl border border-slate-700/50">
-                {gallery.map((_, idx) => (
+                {parsedGallery.map((imgItem, idx) => (
                   <button
                     key={idx}
                     type="button"
@@ -157,7 +157,7 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
                         : 'bg-slate-800/80 text-gray-300 hover:bg-slate-700'
                     }`}
                   >
-                    {viewLabels[idx] || `View ${idx + 1}`}
+                    {imgItem.label}
                   </button>
                 ))}
               </div>

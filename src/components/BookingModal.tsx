@@ -13,6 +13,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 
+import { parseImage, ApartmentImageItem } from "@/utils/imageUtils";
+
 interface Apartment {
   id: string;
   name: string;
@@ -20,7 +22,7 @@ interface Apartment {
   price: number;
   max_guests: number;
   image_url?: string;
-  images?: string[];
+  images?: ApartmentImageItem[];
 }
 
 interface BookingModalProps {
@@ -28,8 +30,6 @@ interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const viewLabels = ['Lounge', 'Bedroom', 'Bathroom', 'Kitchen', 'Balcony'];
 
 const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose }) => {
   const { user } = useAuth();
@@ -122,9 +122,11 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
   if (!apartment) return null;
 
   const nights = getNights();
-  const gallery = apartment.images && apartment.images.length > 0
+  const rawModalGallery = apartment.images && apartment.images.length > 0
     ? apartment.images
     : [apartment.image_url || `/images/apartments/harmony-apt-${apartment.id || '1'}.jpg`];
+  const parsedModalGallery = rawModalGallery.map((item, idx) => parseImage(item, idx));
+  const activeModalImage = parsedModalGallery[selectedPhotoIdx] || parsedModalGallery[0];
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -146,18 +148,18 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
         <div className="my-2 space-y-2">
           <div className="relative h-48 rounded-xl overflow-hidden bg-slate-900 shadow-inner">
             <img
-              src={gallery[selectedPhotoIdx] || gallery[0]}
-              alt={`${apartment.name} ${viewLabels[selectedPhotoIdx] || ''}`}
+              src={activeModalImage.src}
+              alt={`${apartment.name} ${activeModalImage.label}`}
               className="w-full h-full object-cover transition-all duration-300"
             />
             <div className="absolute top-2 left-2 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-full text-white text-[11px] font-semibold border border-white/20">
-              {viewLabels[selectedPhotoIdx] || `View ${selectedPhotoIdx + 1}`}
+              {activeModalImage.label}
             </div>
           </div>
 
-          {gallery.length > 1 && (
+          {parsedModalGallery.length > 1 && (
             <div className="grid grid-cols-5 gap-1.5">
-              {gallery.map((imgSrc, idx) => (
+              {parsedModalGallery.map((imgObj, idx) => (
                 <button
                   key={idx}
                   type="button"
@@ -168,9 +170,9 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
                       : 'border-transparent opacity-70 hover:opacity-100'
                   }`}
                 >
-                  <img src={imgSrc} alt={viewLabels[idx] || `View ${idx}`} className="w-full h-full object-cover" />
+                  <img src={imgObj.src} alt={imgObj.label} className="w-full h-full object-cover" />
                   <span className="absolute bottom-0 inset-x-0 bg-black/60 text-[9px] text-white text-center py-0.5 font-medium truncate px-0.5">
-                    {viewLabels[idx] || `View ${idx+1}`}
+                    {imgObj.label}
                   </span>
                 </button>
               ))}

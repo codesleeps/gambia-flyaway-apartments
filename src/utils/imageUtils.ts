@@ -45,3 +45,37 @@ export const handleImageError = (
     target.src = fallbackPath.startsWith('/') ? fallbackPath : `/${fallbackPath}`;
   }
 };
+
+export type ApartmentImageItem = string | { src: string; label: string };
+
+/**
+ * Derives a clean image label from path or index
+ */
+export const getImageLabel = (path: string, index: number, customLabel?: string): string => {
+  if (customLabel) return customLabel;
+  if (!path) return `Photo ${index + 1}`;
+  const lower = path.toLowerCase();
+  if (lower.includes('lounge') || lower.includes('living')) return 'Lounge';
+  if (lower.includes('bedroom') || lower.includes('bedrrom') || lower.includes('bed')) return 'Bedroom';
+  if (lower.includes('bathroom') || lower.includes('bath')) return 'Bathroom';
+  if (lower.includes('kitchen')) return 'Kitchen';
+  if (lower.includes('balcony')) return 'Balcony';
+  if (lower.includes('terrace') || lower.includes('patio') || lower.includes('exterior') || lower.includes('garden')) return 'Outdoor';
+  return `Photo ${index + 1}`;
+};
+
+/**
+ * Normalizes an image item into { src: string, label: string }
+ */
+export const parseImage = (item: ApartmentImageItem, index: number): { src: string; label: string } => {
+  if (typeof item === 'object' && item !== null) {
+    return {
+      src: getImagePath(item.src),
+      label: item.label || getImageLabel(item.src, index),
+    };
+  }
+  return {
+    src: getImagePath(item || ''),
+    label: getImageLabel(item || '', index),
+  };
+};

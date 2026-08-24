@@ -10,13 +10,13 @@ const mockApartments = [
     price: 25,
     rating: 4.9,
     reviews: 124,
-    image_url: '/images/apartments/harmony-apt-1.jpg',
+    image_url: '/images/apartments/harmony-apt-1-lounge.jpg',
     images: [
       '/images/apartments/harmony-apt-1-lounge.jpg',
       '/images/apartments/harmony-apt-1-bedroom.jpg',
-      '/images/apartments/harmony-apt-1-bathroom.jpg',
-      '/images/apartments/harmony-apt-1-kitchen.jpg',
-      '/images/apartments/harmony-apt-1-balcony.jpg'
+      '/images/apartments/harmony-apt-1-bedroom1.jpg',
+      '/images/apartments/harmony-apt-1-bedroom-a.jpg',
+      '/images/apartments/harmony-apt-1-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Kitchenette', 'Garden View'],
     bedrooms: 2,
@@ -31,13 +31,13 @@ const mockApartments = [
     price: 25,
     rating: 4.8,
     reviews: 89,
-    image_url: '/images/apartments/harmony-apt-2.jpg',
+    image_url: '/images/apartments/harmony-apt-2-lounge.jpg',
     images: [
       '/images/apartments/harmony-apt-2-lounge.jpg',
       '/images/apartments/harmony-apt-2-bedroom.jpg',
+      '/images/apartments/harmony-apt-2-bedrrom-b.jpg',
       '/images/apartments/harmony-apt-2-bathroom.jpg',
-      '/images/apartments/harmony-apt-2-kitchen.jpg',
-      '/images/apartments/harmony-apt-2-balcony.jpg'
+      '/images/apartments/harmony-apt-2-bathrooma.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Patio', 'Free Parking'],
     bedrooms: 2,
@@ -52,13 +52,13 @@ const mockApartments = [
     price: 25,
     rating: 4.7,
     reviews: 67,
-    image_url: '/images/apartments/harmony-apt-3.jpg',
+    image_url: '/images/apartments/harmony-apt-3-lounge.jpg',
     images: [
       '/images/apartments/harmony-apt-3-lounge.jpg',
-      '/images/apartments/harmony-apt-3-bedroom.jpg',
-      '/images/apartments/harmony-apt-3-bathroom.jpg',
+      '/images/apartments/harmony-apt-3-lounge-a.jpg',
+      '/images/apartments/harmony-apt-3-lounge-b.jpg',
       '/images/apartments/harmony-apt-3-kitchen.jpg',
-      '/images/apartments/harmony-apt-3-balcony.jpg'
+      '/images/apartments/harmony-apt-3-kitchena.jpg'
     ],
     amenities: ['Wifi', 'Kitchen', 'Balcony', 'TV'],
     bedrooms: 1,
@@ -68,20 +68,20 @@ const mockApartments = [
   },
   {
     id: '5',
-    name: 'Harmony Apartment 5 (Balcony Suite)',
+    name: 'Harmony Apartment 5 (Suite)',
     location: 'Kerr Serign, The Gambia',
     price: 25,
     rating: 4.9,
     reviews: 43,
-    image_url: '/images/apartments/harmony-apt-5.jpg',
+    image_url: '/images/apartments/harmony-apt-5-lounge.jpg',
     images: [
       '/images/apartments/harmony-apt-5-lounge.jpg',
       '/images/apartments/harmony-apt-5-bedroom.jpg',
-      '/images/apartments/harmony-apt-5-bathroom.jpg',
+      '/images/apartments/harmony-apt-5-bedroom-a.jpg',
       '/images/apartments/harmony-apt-5-kitchen.jpg',
-      '/images/apartments/harmony-apt-5-balcony.jpg'
+      '/images/apartments/harmony-apt-5-kitchen-a.jpg'
     ],
-    amenities: ['Wifi', 'Air Conditioning', 'Balcony View', 'Kitchen'],
+    amenities: ['Wifi', 'Air Conditioning', 'Kitchen', 'Garden View'],
     bedrooms: 2,
     bathrooms: 1,
     max_guests: 4,
@@ -94,13 +94,13 @@ const mockApartments = [
     price: 30,
     rating: 5.0,
     reviews: 92,
-    image_url: '/images/apartments/harmony-apt-6.jpg',
+    image_url: '/images/apartments/harmony-apt-6-lounge.jpg',
     images: [
       '/images/apartments/harmony-apt-6-lounge.jpg',
-      '/images/apartments/harmony-apt-6-bedroom.jpg',
-      '/images/apartments/harmony-apt-6-bathroom.jpg',
-      '/images/apartments/harmony-apt-6-kitchen.jpg',
-      '/images/apartments/harmony-apt-6-balcony.jpg'
+      '/images/apartments/harmony-apt-6-lounge-a.jpg',
+      '/images/apartments/harmony-apt-6-lounge-6a.jpg',
+      '/images/apartments/harmony-apt-6-bedroom-a.jpg',
+      '/images/apartments/harmony-apt-6-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Terrace', 'Luxury Lounge'],
     bedrooms: 2,
