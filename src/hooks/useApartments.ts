@@ -12,10 +12,10 @@ const mockApartments = [
     reviews: 124,
     image_url: '/images/apartments/harmony-apt-1-lounge.jpg',
     images: [
-      { src: '/images/apartments/harmony-apt-1-lounge.jpg', label: 'Lounge' },
-      { src: '/images/apartments/harmony-apt-1-bedroom.jpg', label: 'Bedroom' },
-      { src: '/images/apartments/harmony-apt-1-kitchen.jpg', label: 'Kitchen' },
-      { src: '/images/apartments/harmony-apt-2-bathroom.jpg', label: 'Bathroom' }
+      '/images/apartments/harmony-apt-1-lounge.jpg',
+      '/images/apartments/harmony-apt-1-bedroom.jpg',
+      '/images/apartments/harmony-apt-2-bathroom.jpg',
+      '/images/apartments/harmony-apt-1-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Kitchenette', 'Garden View'],
     bedrooms: 2,
@@ -32,10 +32,10 @@ const mockApartments = [
     reviews: 89,
     image_url: '/images/apartments/harmony-apt-2-lounge.jpg',
     images: [
-      { src: '/images/apartments/harmony-apt-2-lounge.jpg', label: 'Lounge' },
-      { src: '/images/apartments/harmony-apt-2-bedroom.jpg', label: 'Bedroom' },
-      { src: '/images/apartments/harmony-apt-2-bedrrom-b.jpg', label: 'Kitchen' },
-      { src: '/images/apartments/harmony-apt-2-bathroom.jpg', label: 'Bathroom' }
+      '/images/apartments/harmony-apt-2-lounge.jpg',
+      '/images/apartments/harmony-apt-2-bedroom.jpg',
+      '/images/apartments/harmony-apt-2-bathroom.jpg',
+      '/images/apartments/harmony-apt-1-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Patio', 'Free Parking'],
     bedrooms: 2,
@@ -52,10 +52,10 @@ const mockApartments = [
     reviews: 67,
     image_url: '/images/apartments/harmony-apt-3-lounge.jpg',
     images: [
-      { src: '/images/apartments/harmony-apt-3-lounge.jpg', label: 'Lounge' },
-      { src: '/images/apartments/harmony-apt-3-lounge-b.jpg', label: 'Bedroom' },
-      { src: '/images/apartments/harmony-apt-3-kitchen.jpg', label: 'Kitchen' },
-      { src: '/images/apartments/harmony-apt-3-kitchena.jpg', label: 'Bathroom' }
+      '/images/apartments/harmony-apt-3-lounge.jpg',
+      '/images/apartments/harmony-apt-1-bedroom.jpg',
+      '/images/apartments/harmony-apt-2-bathroom.jpg',
+      '/images/apartments/harmony-apt-3-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Kitchen', 'Balcony', 'TV'],
     bedrooms: 1,
@@ -72,10 +72,10 @@ const mockApartments = [
     reviews: 43,
     image_url: '/images/apartments/harmony-apt-5-lounge.jpg',
     images: [
-      { src: '/images/apartments/harmony-apt-5-lounge.jpg', label: 'Lounge' },
-      { src: '/images/apartments/harmony-apt-5-bedroom.jpg', label: 'Bedroom' },
-      { src: '/images/apartments/harmony-apt-5-kitchen.jpg', label: 'Kitchen' },
-      { src: '/images/apartments/harmony-apt-5-kitchen-a.jpg', label: 'Bathroom' }
+      '/images/apartments/harmony-apt-5-lounge.jpg',
+      '/images/apartments/harmony-apt-5-bedroom.jpg',
+      '/images/apartments/harmony-apt-2-bathroom.jpg',
+      '/images/apartments/harmony-apt-5-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Kitchen', 'Garden View'],
     bedrooms: 2,
@@ -92,10 +92,10 @@ const mockApartments = [
     reviews: 92,
     image_url: '/images/apartments/harmony-apt-6-lounge.jpg',
     images: [
-      { src: '/images/apartments/harmony-apt-6-lounge.jpg', label: 'Lounge' },
-      { src: '/images/apartments/harmony-apt-6-bedroom-a.jpg', label: 'Bedroom' },
-      { src: '/images/apartments/harmony-apt-6-kitchen.jpg', label: 'Kitchen' },
-      { src: '/images/apartments/harmony-apt-6-lounge-a.jpg', label: 'Bathroom' }
+      '/images/apartments/harmony-apt-6-lounge.jpg',
+      '/images/apartments/harmony-apt-6-bedroom-a.jpg',
+      '/images/apartments/harmony-apt-2-bathroom.jpg',
+      '/images/apartments/harmony-apt-6-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Terrace', 'Luxury Lounge'],
     bedrooms: 2,

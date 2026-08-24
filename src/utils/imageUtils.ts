@@ -81,30 +81,21 @@ export const parseImage = (item: ApartmentImageItem, index: number): { src: stri
 };
 
 /**
- * Normalizes an array of gallery images and ensures tab labels are strictly unique (e.g., one Lounge, one Bedroom, one Kitchen, one Bathroom)
+ * Normalizes gallery images so each tab maps directly to its exact room image filename (Lounge, Bedroom, Kitchen, Bathroom) with zero duplicate category tabs.
  */
 export const parseGallery = (items: ApartmentImageItem[]): { src: string; label: string }[] => {
   if (!items || items.length === 0) return [];
 
   const seenLabels = new Set<string>();
-  const uniqueList: { src: string; label: string }[] = [];
+  const result: { src: string; label: string }[] = [];
 
   items.forEach((item, idx) => {
-    let src = '';
-    let label = '';
-    if (typeof item === 'object' && item !== null) {
-      src = getImagePath(item.src);
-      label = item.label || getImageLabel(item.src, idx);
-    } else {
-      src = getImagePath(item || '');
-      label = getImageLabel(item || '', idx);
-    }
-
-    if (!seenLabels.has(label)) {
-      seenLabels.add(label);
-      uniqueList.push({ src, label });
+    const parsed = parseImage(item, idx);
+    if (!seenLabels.has(parsed.label)) {
+      seenLabels.add(parsed.label);
+      result.push(parsed);
     }
   });
 
-  return uniqueList;
+  return result;
 };
