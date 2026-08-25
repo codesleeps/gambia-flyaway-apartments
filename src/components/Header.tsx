@@ -1,11 +1,14 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { MapPin, User, Calendar, LogOut, LayoutDashboard } from 'lucide-react';
+import { MapPin, User, LogOut, LayoutDashboard, Coins } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCurrency, CURRENCIES, Currency } from '@/contexts/CurrencyContext';
 import { useNavigate, useLocation } from 'react-router-dom';
+import WeatherWidget from './WeatherWidget';
 
 const Header = () => {
   const { user, signOut } = useAuth();
+  const { currency, setCurrency } = useCurrency();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,19 +43,24 @@ const Header = () => {
 
   return (
     <header className="bg-gray-900/95 backdrop-blur-md border-b border-gray-800 text-white sticky top-0 z-50 shadow-md">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-2 cursor-pointer pointer-events-auto">
-          <a href="/#/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+      <div className="container mx-auto px-4 py-3.5 flex items-center justify-between">
+        <div className="flex items-center space-x-3 cursor-pointer pointer-events-auto">
+          <a href="/#/" className="flex items-center space-x-2.5">
+            <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-md">
               <MapPin className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-orange-400">Gambia Stay</h1>
-              <p className="text-xs text-gray-400">Premium Apartments</p>
+              <h1 className="text-xl font-bold text-orange-400 leading-tight">Gambia Flyaway</h1>
+              <p className="text-[11px] text-gray-400">Luxury Apartments</p>
             </div>
           </a>
         </div>
-        
+
+        {/* Compact Weather Badge */}
+        <div className="hidden lg:block">
+          <WeatherWidget compact={true} />
+        </div>
+
         <nav className="hidden md:flex items-center space-x-6 pointer-events-auto font-medium text-sm">
           <a 
             href="/#/"
@@ -90,17 +98,34 @@ const Header = () => {
             Contact
           </button>
         </nav>
-        
-        <div className="flex items-center space-x-3">
+
+        <div className="flex items-center space-x-2.5">
+          {/* Currency Switcher Dropdown */}
+          <div className="relative flex items-center">
+            <select
+              aria-label="Select Currency"
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value as Currency)}
+              className="bg-slate-800 text-gray-200 border border-slate-700/80 rounded-xl text-xs font-semibold px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-orange-500/50 cursor-pointer shadow-sm"
+            >
+              {Object.values(CURRENCIES).map((c) => (
+                <option key={c.code} value={c.code} className="bg-slate-900 text-white">
+                  {c.symbol} {c.code}
+                </option>
+              ))}
+            </select>
+          </div>
+
           {user && (
-            <Button variant="outline" size="sm" className="hidden md:flex items-center space-x-2" onClick={handleDashboard}>
+            <Button variant="outline" size="sm" className="hidden md:flex items-center space-x-2 border-slate-700 text-white hover:bg-slate-800" onClick={handleDashboard}>
               <LayoutDashboard className="w-4 h-4" />
               <span>Dashboard</span>
             </Button>
           )}
+
           <Button 
             size="sm" 
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-2 booking-gradient text-white shadow-md font-semibold"
             onClick={handleAuthAction}
             variant={user ? "outline" : "default"}
           >

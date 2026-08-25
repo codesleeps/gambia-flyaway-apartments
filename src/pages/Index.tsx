@@ -15,6 +15,8 @@ import { useApartments } from "../hooks/useApartments";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getImagePath, handleImageError } from "@/utils/imageUtils";
 import SEO from "../components/SEO";
+import LocationMapSection from "../components/LocationMapSection";
+import WeatherWidget from "../components/WeatherWidget";
 
 interface Attraction {
   id: string;
@@ -226,15 +228,17 @@ const Index = () => {
               <MapPin className="w-4 h-4 text-orange-400" />
               <span>6 Coastal Locations</span>
             </div>
+          </div>          {/* Hero Weather Widget & CTA */}
+          <div className="flex flex-col items-center gap-6 mb-8 w-full max-w-md">
+            <WeatherWidget compact={false} />
+            <Button
+              size="lg"
+              className="booking-gradient text-white text-base sm:text-lg font-semibold px-8 py-6 rounded-2xl shadow-2xl hover:scale-105 transition-all w-full"
+              onClick={scrollToApartments}
+            >
+              Explore Apartments
+            </Button>
           </div>
-
-          <Button
-            size="lg"
-            className="booking-gradient text-white text-base sm:text-lg font-semibold px-8 py-6 rounded-2xl shadow-2xl hover:scale-105 transition-all"
-            onClick={scrollToApartments}
-          >
-            Explore Apartments
-          </Button>
         </div>
       </section>
 
@@ -278,12 +282,10 @@ const Index = () => {
               <p className="text-xs text-red-500">{error.message}</p>
             </div>
           ) : filteredApartments.length === 0 ? (
-            <div className="text-center py-16 bg-white rounded-2xl shadow-sm border border-gray-100 max-w-lg mx-auto p-8">
-              <div className="w-16 h-16 bg-orange-100 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                <Compass className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">No matching apartments found</h3>
-              <p className="text-sm text-muted-foreground mb-6">
+            <div className="text-center py-16 bg-slate-800/60 rounded-3xl border border-slate-700/60 max-w-md mx-auto">
+              <div className="text-4xl mb-3">🔍</div>
+              <h3 className="text-lg font-bold mb-1 text-white">No apartments matched</h3>
+              <p className="text-xs text-gray-400 mb-6">
                 Try adjusting your search criteria or resetting filters to view all properties.
               </p>
               <Button onClick={handleResetFilters} className="bg-primary hover:bg-primary/90 text-sm">
@@ -299,6 +301,9 @@ const Index = () => {
           )}
         </div>
       </section>
+
+      {/* Interactive Location & Proximity Section */}
+      <LocationMapSection />
 
       {/* Guest Reviews Section */}
       <ReviewsSection />

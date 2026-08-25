@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Star, MapPin, Users, Bed, Bath, Wifi, Car, Waves, Heart, ShieldCheck } from 'lucide-react';
+import { Star, MapPin, Users, Bed, Bath, Wifi, Car, Waves, Heart, ShieldCheck, Share2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCurrency } from '@/contexts/CurrencyContext';
 import { useNavigate } from 'react-router-dom';
 import BookingModal from './BookingModal';
 import { toast } from 'sonner';
 import { getImagePath, handleImageError, parseGallery, parseImage, ApartmentImageItem } from '@/utils/imageUtils';
+import { safeJsonParse } from '@/utils/securityUtils';
 
 interface Apartment {
   id: string;
@@ -30,6 +32,7 @@ interface ApartmentCardProps {
 
 const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
   const { user } = useAuth();
+  const { formatPrice } = useCurrency();
   const navigate = useNavigate();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -41,18 +44,14 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
 
   // Check if apartment is in local favorites
   useEffect(() => {
-    try {
-      const favs = JSON.parse(localStorage.getItem('gambia_favs') || '[]');
-      setIsFavorite(favs.includes(apartment.id));
-    } catch (e) {
-      console.error(e);
-    }
+    const favs = safeJsonParse<string[]>(localStorage.getItem('gambia_favs'), []);
+    setIsFavorite(favs.includes(apartment.id));
   }, [apartment.id]);
 
   const toggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      const favs: string[] = JSON.parse(localStorage.getItem('gambia_favs') || '[]');
+      const favs = safeJsonParse<string[]>(localStorage.getItem('gambia_favs'), []);
       let updatedFavs: string[];
       if (favs.includes(apartment.id)) {
         updatedFavs = favs.filter((id) => id !== apartment.id);
@@ -65,6 +64,24 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
       setIsFavorite(!isFavorite);
     } catch (e) {
       console.error(e);
+    }
+  };
+
+  const handleShare = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const shareText = `Check out ${apartment.name} in ${apartment.location} on Gambia Flyaway Apartments! ${formatPrice(apartment.price)}/night`;
+    const shareUrl = window.location.href;
+
+    if (navigator.share) {
+      navigator.share({
+        title: apartment.name,
+        text: shareText,
+        url: shareUrl,
+      }).catch(() => {});
+    } else {
+      const waUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText} - ${shareUrl}`)}`;
+      window.open(waUrl, '_blank');
+      toast.success("Opening WhatsApp share link! 📲");
     }
   };
 
@@ -112,7 +129,7 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
             {/* Price Tag Overlay */}
             <div className="absolute top-3 right-3">
               <Badge className="bg-slate-950/80 backdrop-blur-md text-white border-0 text-xs px-3 py-1 font-bold shadow-lg">
-                £{apartment.price} <span className="font-normal text-[10px] text-gray-300 ml-0.5">/ night</span>
+                {formatPrice(apartment.price)} <span className="font-normal text-[10px] text-gray-300 ml-0.5">/ night</span>
               </Badge>
             </div>
 
@@ -127,18 +144,28 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
               </div>
             </div>
 
-            {/* Favorite Heart Button */}
-            <button
-              onClick={toggleFavorite}
-              aria-label="Save to wishlist"
-              className="absolute top-12 right-3 w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all border border-slate-700/60 text-gray-300 hover:text-red-500 z-10"
-            >
-              <Heart
-                className={`w-4 h-4 transition-colors ${
-                  isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-300'
-                }`}
-              />
-            </button>
+            {/* Action Overlay Buttons (Favorite & Share) */}
+            <div className="absolute top-12 right-3 flex flex-col gap-1.5 z-10">
+              <button
+                onClick={toggleFavorite}
+                aria-label="Save to wishlist"
+                className="w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all border border-slate-700/60 text-gray-300 hover:text-red-500"
+              >
+                <Heart
+                  className={`w-4 h-4 transition-colors ${
+                    isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-300'
+                  }`}
+                />
+              </button>
+
+              <button
+                onClick={handleShare}
+                aria-label="Share apartment"
+                className="w-9 h-9 rounded-full bg-slate-950/80 backdrop-blur-md flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all border border-slate-700/60 text-gray-300 hover:text-orange-400"
+              >
+                <Share2 className="w-4 h-4" />
+              </button>
+            </div>
 
             {/* Room View Gallery Switcher Tabs */}
             {parsedGallery.length > 1 && (

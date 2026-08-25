@@ -6,14 +6,15 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Users, MapPin, Sparkles, CheckCircle2, ShieldCheck } from "lucide-react";
+import { CalendarIcon, Users, MapPin, Sparkles, CheckCircle2, ShieldCheck, Car, Utensils, Wifi } from "lucide-react";
 import { format, addDays } from "date-fns";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { toast } from "sonner";
-
 import { parseGallery, parseImage, ApartmentImageItem } from "@/utils/imageUtils";
+import { sanitizeInput, rateLimiter } from "@/utils/securityUtils";
 
 interface Apartment {
   id: string;
@@ -33,12 +34,18 @@ interface BookingModalProps {
 
 const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose }) => {
   const { user } = useAuth();
+  const { formatPrice } = useCurrency();
   const [checkInDate, setCheckInDate] = useState<Date>();
   const [checkOutDate, setCheckOutDate] = useState<Date>();
   const [guests, setGuests] = useState(1);
   const [specialRequests, setSpecialRequests] = useState('');
   const [isBooking, setIsBooking] = useState(false);
   const [selectedPhotoIdx, setSelectedPhotoIdx] = useState(0);
+
+  // Add-on Options State
+  const [hasAirportTransfer, setHasAirportTransfer] = useState(false);
+  const [hasBreakfast, setHasBreakfast] = useState(false);
+  const [hasPocketWifi, setHasPocketWifi] = useState(false);
 
   const cleaningFee = 25;
   const serviceFee = 15;
@@ -54,9 +61,18 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
     return getNights() * apartment.price;
   };
 
+  const calculateAddonsTotal = () => {
+    const nights = getNights();
+    let total = 0;
+    if (hasAirportTransfer) total += 20; // One-off airport pickup
+    if (hasBreakfast && nights > 0) total += 8 * nights * guests;
+    if (hasPocketWifi && nights > 0) total += 5 * nights;
+    return total;
+  };
+
   const calculateTotalPrice = () => {
     const subtotal = calculateSubtotal();
-    return subtotal > 0 ? subtotal + cleaningFee + serviceFee : 0;
+    return subtotal > 0 ? subtotal + cleaningFee + serviceFee + calculateAddonsTotal() : 0;
   };
 
   const setPresetDates = (days: number) => {
@@ -72,6 +88,12 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
       return;
     }
 
+    // Rate Limiting Check (Max 5 booking attempts per 2 minutes)
+    if (!rateLimiter.isAllowed(`booking_${user.id}`, 5, 120000)) {
+      toast.error("Too many reservation attempts. Please wait a moment.");
+      return;
+    }
+
     if (guests > apartment.max_guests) {
       toast.error(`Maximum ${apartment.max_guests} guests allowed`);
       return;
@@ -81,6 +103,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
       toast.error("Check-out date must be after check-in date");
       return;
     }
+
+    const cleanSpecialRequests = sanitizeInput(specialRequests);
 
     setIsBooking(true);
 
@@ -94,7 +118,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
           check_out_date: format(checkOutDate, 'yyyy-MM-dd'),
           guests,
           total_price: calculateTotalPrice(),
-          special_requests: specialRequests || null,
+          special_requests: cleanSpecialRequests || null,
         });
 
       if (error) throw error;
@@ -277,6 +301,55 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
             </div>
           </div>
 
+          {/* Optional Add-on Services */}
+          <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs space-y-2.5">
+            <Label className="text-xs font-bold text-gray-800 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-orange-500" /> Optional Add-on Services
+            </Label>
+
+            <label className="flex items-center justify-between cursor-pointer hover:bg-slate-100 p-1.5 rounded-lg transition-colors">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={hasAirportTransfer}
+                  onChange={(e) => setHasAirportTransfer(e.target.checked)}
+                  className="rounded text-orange-500 focus:ring-orange-400 w-3.5 h-3.5"
+                />
+                <Car className="w-3.5 h-3.5 text-orange-600" />
+                <span className="font-medium text-gray-800">Banjul Airport (BJL) Pickup</span>
+              </div>
+              <span className="font-bold text-gray-700">{formatPrice(20)}</span>
+            </label>
+
+            <label className="flex items-center justify-between cursor-pointer hover:bg-slate-100 p-1.5 rounded-lg transition-colors">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={hasBreakfast}
+                  onChange={(e) => setHasBreakfast(e.target.checked)}
+                  className="rounded text-orange-500 focus:ring-orange-400 w-3.5 h-3.5"
+                />
+                <Utensils className="w-3.5 h-3.5 text-amber-600" />
+                <span className="font-medium text-gray-800">Daily Gambian Breakfast</span>
+              </div>
+              <span className="font-bold text-gray-700">{formatPrice(8)} / night</span>
+            </label>
+
+            <label className="flex items-center justify-between cursor-pointer hover:bg-slate-100 p-1.5 rounded-lg transition-colors">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={hasPocketWifi}
+                  onChange={(e) => setHasPocketWifi(e.target.checked)}
+                  className="rounded text-orange-500 focus:ring-orange-400 w-3.5 h-3.5"
+                />
+                <Wifi className="w-3.5 h-3.5 text-cyan-600" />
+                <span className="font-medium text-gray-800">Portable Pocket Wi-Fi Router</span>
+              </div>
+              <span className="font-bold text-gray-700">{formatPrice(5)} / night</span>
+            </label>
+          </div>
+
           {/* Special Requests */}
           <div>
             <Label htmlFor="requests" className="text-xs font-semibold text-gray-700 mb-1 block">
@@ -284,31 +357,37 @@ const BookingModal: React.FC<BookingModalProps> = ({ apartment, isOpen, onClose 
             </Label>
             <Textarea
               id="requests"
-              placeholder="Airport pickup, early check-in, extra towels..."
+              placeholder="Early check-in, extra towels, flight number..."
               value={specialRequests}
               onChange={(e) => setSpecialRequests(e.target.value)}
-              className="h-16 text-xs border-gray-200 resize-none"
+              className="h-14 text-xs border-gray-200 resize-none"
             />
           </div>
 
           {/* Price Breakdown */}
           {nights > 0 && (
-            <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 text-xs space-y-2">
+            <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs space-y-2">
               <div className="flex justify-between text-gray-600">
-                <span>£{apartment.price} × {nights} {nights === 1 ? 'night' : 'nights'}</span>
-                <span className="font-semibold text-gray-900">£{calculateSubtotal()}</span>
+                <span>{formatPrice(apartment.price)} × {nights} {nights === 1 ? 'night' : 'nights'}</span>
+                <span className="font-semibold text-gray-900">{formatPrice(calculateSubtotal())}</span>
               </div>
+              {calculateAddonsTotal() > 0 && (
+                <div className="flex justify-between text-orange-700 font-medium">
+                  <span>Selected Add-on Services</span>
+                  <span>+{formatPrice(calculateAddonsTotal())}</span>
+                </div>
+              )}
               <div className="flex justify-between text-gray-600">
                 <span>Cleaning & Sanitization fee</span>
-                <span>£{cleaningFee}</span>
+                <span>{formatPrice(cleaningFee)}</span>
               </div>
               <div className="flex justify-between text-gray-600">
                 <span>Resort & Service fee</span>
-                <span>£{serviceFee}</span>
+                <span>{formatPrice(serviceFee)}</span>
               </div>
               <div className="pt-2 border-t border-slate-200 flex justify-between items-center font-bold text-sm text-gray-900">
                 <span>Total Due:</span>
-                <span className="text-primary text-lg">£{calculateTotalPrice()}</span>
+                <span className="text-orange-600 text-lg font-black">{formatPrice(calculateTotalPrice())}</span>
               </div>
             </div>
           )}

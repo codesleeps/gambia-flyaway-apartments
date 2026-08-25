@@ -9,6 +9,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { useToast } from '@/hooks/use-toast';
+import { sanitizeInput, sanitizeEmail, sanitizePhone, rateLimiter } from '@/utils/securityUtils';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -32,15 +33,52 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // 1. Rate Limiting Check (Max 3 submissions per minute)
+    if (!rateLimiter.isAllowed('contact_form', 3, 60000)) {
+      toast({
+        title: 'Too Many Attempts ⚠️',
+        description: 'Please wait a minute before sending another message.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // 2. Sanitize and Validate Form Inputs
+    const cleanName = sanitizeInput(formData.name);
+    const cleanEmail = sanitizeEmail(formData.email);
+    const cleanPhone = sanitizePhone(formData.phone);
+    const cleanSubject = sanitizeInput(formData.subject);
+    const cleanMessage = sanitizeInput(formData.message);
+
+    if (!cleanEmail) {
+      toast({
+        title: 'Invalid Email ⚠️',
+        description: 'Please enter a valid email address.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    if (!cleanMessage || cleanMessage.length < 5) {
+      toast({
+        title: 'Message Too Short ⚠️',
+        description: 'Please enter a detailed message.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Simulate safe form submission with sanitized payload
+    console.log('Sending sanitized payload:', { name: cleanName, email: cleanEmail, phone: cleanPhone, subject: cleanSubject, message: cleanMessage });
+    await new Promise(resolve => setTimeout(resolve, 1500));
     
     setIsSubmitting(false);
     setIsSubmitted(true);
     toast({
-      title: 'Message Sent!',
+      title: 'Message Sent! Lock Icon Verified 🔒',
       description: "Thank you for contacting us. We'll get back to you within 24 hours.",
       variant: 'default',
     });
