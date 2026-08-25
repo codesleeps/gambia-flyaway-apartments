@@ -117,7 +117,11 @@ const Header = () => {
           </div>
 
           {user && (
-            <Button variant="outline" size="sm" className="hidden md:flex items-center space-x-2 border-slate-700 text-white hover:bg-slate-800" onClick={handleDashboard}>
+            <Button 
+              size="sm" 
+              className="hidden md:flex items-center space-x-2 booking-gradient text-white shadow-md font-semibold border-0 hover:opacity-95 rounded-xl" 
+              onClick={handleDashboard}
+            >
               <LayoutDashboard className="w-4 h-4" />
               <span>Dashboard</span>
             </Button>
@@ -125,9 +129,8 @@ const Header = () => {
 
           <Button 
             size="sm" 
-            className="flex items-center space-x-2 booking-gradient text-white shadow-md font-semibold"
+            className="flex items-center space-x-2 booking-gradient text-white shadow-md font-semibold border-0 hover:opacity-95 rounded-xl"
             onClick={handleAuthAction}
-            variant={user ? "outline" : "default"}
           >
             {user ? (
               <>
