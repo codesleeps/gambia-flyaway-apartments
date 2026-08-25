@@ -33,9 +33,9 @@ const mockApartments = [
     image_url: '/images/apartments/harmony-apt-2-lounge.jpg',
     images: [
       '/images/apartments/harmony-apt-2-lounge.jpg',
-      '/images/apartments/harmony-apt-2-bedroom.jpg',
-      '/images/apartments/harmony-apt-2-bathroom.jpg',
-      { src: '/images/apartments/harmony-apt-2-bedrrom-b.jpg', label: 'Kitchen' }
+      '/images/apartments/harmony-apt-2-bedroom-view.jpg',
+      '/images/apartments/apartment-2-bathroom-view.webp',
+      '/images/apartments/apartment-2-kitchen-view.webp'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Patio', 'Free Parking'],
     bedrooms: 2,
