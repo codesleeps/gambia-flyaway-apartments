@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { MapPin, Eye, EyeOff, Waves, Star, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import SEO from '@/components/SEO';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -81,6 +82,10 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex">
+      <SEO 
+        title="Sign In & Register | Gambia Flyaway Apartments"
+        description="Sign in or create an account with Gambia Flyaway Apartments to reserve luxury self-catering apartments in Kerr Serign, The Gambia."
+      />
       {/* Left Side - Hero Section */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-900 to-gray-900 relative overflow-hidden items-center justify-center p-12 border-r border-slate-800">
         <div className="relative z-10 max-w-md">
@@ -88,7 +93,7 @@ const Auth = () => {
             <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg">
               <MapPin className="w-6 h-6 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">Gambia Stay</h2>
+            <h2 className="text-2xl font-bold text-white">Gambia Flyaway</h2>
           </div>
           <h1 className="text-4xl font-extrabold text-white mb-4 leading-tight">
             Book Premium Stay in <span className="text-orange-400">The Gambia</span>

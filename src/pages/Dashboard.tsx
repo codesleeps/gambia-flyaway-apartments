@@ -10,6 +10,7 @@ import { Calendar, MapPin, Users, Phone, Mail, CreditCard } from 'lucide-react';
 import { format } from 'date-fns';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { getImagePath } from '@/utils/imageUtils';
 
 const Dashboard = () => {
@@ -43,6 +44,10 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
+      <SEO 
+        title="My Account & Reservations | Gambia Flyaway Apartments"
+        description="View and manage your active apartment bookings, reservation dates, and account details with Gambia Flyaway Apartments."
+      />
       <Header />
       
       <div className="container mx-auto px-4 py-8">

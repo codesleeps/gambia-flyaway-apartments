@@ -14,6 +14,7 @@ import ReviewsSection from "../components/ReviewsSection";
 import { useApartments } from "../hooks/useApartments";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getImagePath, handleImageError } from "@/utils/imageUtils";
+import SEO from "../components/SEO";
 
 interface Attraction {
   id: string;
@@ -141,8 +142,41 @@ const Index = () => {
     }
   };
 
+  const jsonLdData = {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": "Gambia Flyaway Apartments",
+    "description": "Luxury self-catering holiday apartments in Kerr Serign, The Gambia.",
+    "url": "https://gambiaflyaway.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Kerr Serign",
+      "addressLocality": "Serrekunda",
+      "addressCountry": "GM"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 13.4422,
+      "longitude": -16.7198
+    },
+    "priceRange": "£25 - £30",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "124"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 font-sans text-slate-100">
+      <SEO 
+        title="Gambia Flyaway Apartments | Luxury Self-Catering Rentals in Kerr Serign, The Gambia"
+        description="Book luxury self-catering apartments in Kerr Serign, The Gambia. Featuring modern lounge, bedroom, kitchen, and bathroom amenities near Senegambia beaches."
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
+      />
       <Header />
 
       {/* Hero Section */}

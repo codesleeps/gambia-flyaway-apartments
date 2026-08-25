@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Facebook, Instagram, Twitter } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
@@ -58,6 +59,10 @@ const Contact = () => {
 
   return (
     <div id="contact" className="min-h-screen bg-gray-900 text-white flex flex-col">
+      <SEO 
+        title="Contact & Directions | Gambia Flyaway Apartments, Kerr Serign"
+        description="Get in touch with Gambia Flyaway Apartments in Kerr Serign, The Gambia. Inquire about apartment availability, special requests, directions, and reservations."
+      />
       <Header />
       
       {/* Hero Section */}
