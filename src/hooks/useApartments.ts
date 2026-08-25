@@ -13,8 +13,8 @@ const mockApartments = [
     image_url: '/images/apartments/harmony-apt-1-lounge.jpg',
     images: [
       '/images/apartments/harmony-apt-1-lounge.jpg',
-      '/images/apartments/harmony-apt-1-bedroom.jpg',
-      { src: '/images/apartments/harmony-apt-1-bedroom-a.jpg', label: 'Bathroom' },
+      '/images/apartments/harmony-apt-1-bedroom-a.jpg',
+      '/images/apartments/apartment-1-bathroom-view.webp',
       '/images/apartments/harmony-apt-1-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Kitchenette', 'Garden View'],
