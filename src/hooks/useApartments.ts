@@ -53,8 +53,8 @@ const mockApartments = [
     image_url: '/images/apartments/harmony-apt-3-lounge.jpg',
     images: [
       '/images/apartments/harmony-apt-3-lounge.jpg',
-      { src: '/images/apartments/harmony-apt-3-lounge-a.jpg', label: 'Bedroom' },
-      { src: '/images/apartments/harmony-apt-3-lounge-b.jpg', label: 'Bathroom' },
+      '/images/apartments/apartment-3-bedroom-view.webp',
+      '/images/apartments/apartment-3-bathrrom-view.webp',
       '/images/apartments/harmony-apt-3-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Kitchen', 'Balcony', 'TV'],
@@ -73,8 +73,8 @@ const mockApartments = [
     image_url: '/images/apartments/harmony-apt-5-lounge.jpg',
     images: [
       '/images/apartments/harmony-apt-5-lounge.jpg',
-      '/images/apartments/harmony-apt-5-bedroom.jpg',
-      { src: '/images/apartments/harmony-apt-5-bedroom-a.jpg', label: 'Bathroom' },
+      '/images/apartments/harmony-apt-5-bedroom-a.jpg',
+      '/images/apartments/apartment-5-bathroom-view.webp',
       '/images/apartments/harmony-apt-5-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Kitchen', 'Garden View'],
@@ -94,7 +94,7 @@ const mockApartments = [
     images: [
       '/images/apartments/harmony-apt-6-lounge.jpg',
       '/images/apartments/harmony-apt-6-bedroom-a.jpg',
-      { src: '/images/apartments/harmony-apt-6-lounge-a.jpg', label: 'Bathroom' },
+      '/images/apartments/apartment-5-bathroom-view.webp',
       '/images/apartments/harmony-apt-6-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Air Conditioning', 'Terrace', 'Luxury Lounge'],
