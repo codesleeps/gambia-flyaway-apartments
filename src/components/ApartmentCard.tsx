@@ -240,12 +240,23 @@ const ApartmentCard: React.FC<ApartmentCardProps> = ({ apartment }) => {
             </div>
           </div>
 
-          <Button
-            className="w-full booking-gradient text-white hover:opacity-95 font-semibold text-sm rounded-xl py-2.5 shadow-md shadow-orange-500/20"
-            onClick={handleBookNow}
-          >
-            {user ? 'Reserve Apartment' : 'Login to Reserve'}
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              className="flex-1 booking-gradient text-white hover:opacity-95 font-semibold text-sm rounded-xl py-2.5 shadow-md shadow-orange-500/20"
+              onClick={handleBookNow}
+            >
+              {user ? 'Reserve Apartment' : 'Login to Reserve'}
+            </Button>
+            <button
+              type="button"
+              onClick={handleShare}
+              title="Share on WhatsApp"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl px-3 py-2.5 font-semibold text-xs shadow-md shadow-emerald-600/20 flex items-center justify-center gap-1.5 transition-all hover:scale-105 active:scale-95 shrink-0"
+            >
+              <Share2 className="w-4 h-4" />
+              <span className="font-bold">WhatsApp</span>
+            </button>
+          </div>
         </CardContent>
       </Card>
 
