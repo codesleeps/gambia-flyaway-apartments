@@ -58,9 +58,9 @@ const mockApartments = [
       '/images/apartments/harmony-apt-3-kitchen.jpg'
     ],
     amenities: ['Wifi', 'Kitchen', 'Balcony', 'TV'],
-    bedrooms: 1,
+    bedrooms: 2,
     bathrooms: 1,
-    max_guests: 2,
+    max_guests: 4,
     created_at: new Date().toISOString()
   },
   {
