@@ -402,7 +402,7 @@ const Index = () => {
 
           <div className="text-center mt-12">
             <a
-              href="https://www.visitthegambia.gm/"
+              href="https://www.tripadvisor.co.uk/Attraction_Review-g1159616-d25344693-Reviews-Visit_the_Gambia-Brufut_West_Coast_Division.html"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block"
