@@ -65,7 +65,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Gambia Stay. All rights reserved. Built with ❤️ for The Gambia.</p>
+          <p>&copy; {new Date().getFullYear()} Gambia Stay. All rights reserved. Built with ❤️ for The Gambia.</p>
         </div>
       </div>
     </footer>
