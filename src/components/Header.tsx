@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { MapPin, User, LogOut, LayoutDashboard, Coins } from 'lucide-react';
+import { MapPin, User, LogOut, LayoutDashboard, Coins, Sparkles } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCurrency, CURRENCIES, Currency } from '@/contexts/CurrencyContext';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -73,6 +73,13 @@ const Header = () => {
             className="text-gray-300 hover:text-orange-400 transition-colors"
           >
             Apartments
+          </button>
+          <button 
+            onClick={() => scrollToSection('flagship-preview')}
+            className="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1 transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5 inline" />
+            Flagship 2026
           </button>
           <button 
             onClick={() => scrollToSection('about')}

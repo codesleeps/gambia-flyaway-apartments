@@ -16,6 +16,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getImagePath, handleImageError } from "@/utils/imageUtils";
 import SEO from "../components/SEO";
 import LocationMapSection from "../components/LocationMapSection";
+import UpcomingFlagshipSection from "../components/UpcomingFlagshipSection";
 import WeatherWidget from "../components/WeatherWidget";
 
 interface Attraction {
@@ -304,6 +305,9 @@ const Index = () => {
 
       {/* Interactive Location & Proximity Section */}
       <LocationMapSection />
+
+      {/* Flagship Luxury Complex & Restaurant Preview Section */}
+      <UpcomingFlagshipSection />
 
       {/* Guest Reviews Section */}
       <ReviewsSection />
